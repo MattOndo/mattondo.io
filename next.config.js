@@ -3,4 +3,16 @@ const { withFaust, getWpHostname } = require('@faustwp/core');
 /**
  * @type {import('next').NextConfig}
  **/
-module.exports = withFaust({});
+const nextConfig = {
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    });
+
+    return config;
+  },
+  trailingSlash: true,
+};
+module.exports = withFaust(nextConfig);
