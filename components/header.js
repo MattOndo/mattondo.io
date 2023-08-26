@@ -1,21 +1,24 @@
 import { gql } from "@apollo/client";
 import Link from "next/link";
+import {NavLink} from "./navlink";
+import Icon from '../assets/images/icon.svg';
 import style from "./header.module.css";
 
 export default function Header({ siteTitle, siteDescription, menuItems }) {
+
   return (
-    <header className={style.header}>
-      <div className="container">
-        <Link href="/" className={style.brand}>
-          <h2 className={style.siteTitle}>{siteTitle}</h2>
-          <p className={style.siteDescription}>{siteDescription}</p>
+    <header className="w-full bg-black">
+      <div className="flex justify-between items-center pl-7">
+        <Link href="/" className="flex gap-2 items-center">
+          <Icon aria-label="Website Logo" />
+          <h2 className="font-display text-teal">{siteTitle}</h2>
         </Link>
 
-        <nav className={style.nav}>
-          <ul>
+        <nav className="block">
+          <ul className="flex">
             {menuItems.map((item) => (
               <li key={item.id}>
-                <Link href={item.uri}>{item.label}</Link>
+                <NavLink href={item.uri} className="block p-7 hover:bg-teal hover:bg-opacity-10 hover:text-teal">{item.label}</NavLink>
               </li>
             ))}
           </ul>
