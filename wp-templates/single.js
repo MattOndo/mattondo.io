@@ -26,7 +26,7 @@ export default function Component(props) {
         menuItems={menuItems}
       />
 
-      <main className="container">
+      <main className="container-fluid">
         <EntryHeader title={title} date={date} author={author.node.name} />
         <div dangerouslySetInnerHTML={{ __html: content }} />
       </main>

@@ -27,7 +27,7 @@ export default function Page() {
         menuItems={menuItems}
       />
 
-      <main className="container">
+      <main className="container-fluid">
         <EntryHeader title="Next.js Page Example" />
         <p>Next.js pages are still supported!</p>
       </main>

@@ -24,7 +24,7 @@ export default function Component(props) {
         menuItems={menuItems}
       />
 
-      <main className="container">
+      <main className="container-fluid">
         <EntryHeader title={`Archive for ${archiveType}: ${name}`} />
 
         <h3>Recent Posts</h3>

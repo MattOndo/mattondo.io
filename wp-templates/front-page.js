@@ -23,7 +23,7 @@ export default function Component(props) {
         menuItems={menuItems}
       />
 
-      <main className="container">
+      <main className="container-fluid">
         <EntryHeader title="Welcome to the Faust Scaffold Blueprint" />
 
         <section className={style.cardGrid}>

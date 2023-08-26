@@ -1,0 +1,5 @@
+.container-fluid {
+  @apply max-w-5xl;
+  @apply m-auto;
+  @apply px-4;
+}
