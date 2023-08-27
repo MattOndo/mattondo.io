@@ -2,7 +2,6 @@ import { gql } from "@apollo/client";
 import Image from 'next/image'
 
 export default function Hero({ headline, subheadline, layout, image }) {
-  console.log(layout);
 
   let src;
   if (image?.sourceUrl instanceof Function) {
@@ -10,8 +9,6 @@ export default function Hero({ headline, subheadline, layout, image }) {
   } else {
     src = image?.sourceUrl;
   }
-
-  headline = headline || title;
 
   return (
     <section className="pageHero container-fluid">
@@ -23,11 +20,11 @@ export default function Hero({ headline, subheadline, layout, image }) {
       }
       {layout === "Image Right" && 
         <div className="container-fluid md:flex items-center my-20">
-          <div class="w-full">
+          <div className="w-full">
             <h1>{headline}</h1>
             <p>{subheadline}</p>
           </div>
-          <div class="w-full">
+          <div className="w-full">
             <Image 
               src={src}
               sizes={image.sizes}
