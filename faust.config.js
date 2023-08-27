@@ -9,4 +9,5 @@ export default setConfig({
   templates,
   experimentalPlugins: [],
   possibleTypes,
+  usePersistedQueries: true,
 });
