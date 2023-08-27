@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 import Link from "next/link";
-import {NavLink} from "./navlink";
-import Icon from '../assets/images/icon.svg';
-import style from "./header.module.css";
+import {NavLink} from "../NavLink";
+import Icon from '../../assets/images/icon.svg';
+import style from "./style.module.css";
 
 export default function Header({ siteTitle, siteDescription, menuItems }) {
 

@@ -1,16 +1,31 @@
 import { gql } from "@apollo/client";
 import Link from "next/link";
 import Head from "next/head";
-import Header from "../components/header";
-import EntryHeader from "../components/entry-header";
-import Footer from "../components/footer";
+import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { 
+  Header, 
+  Hero,
+  EntryHeader,
+  Footer,
+  FeaturedImage
+ } from "../components";
+import appConfig from '/app.config';
 
 export default function Component(props) {
+  const { data, loading, fetchMore } = useQuery(Archive.query, {
+    variables: Archive.variables({ uri }),
+  });
+
+  if (loading) {
+    return <></>;
+  }
+
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const { archiveType, name, posts } = props.data.nodeByUri;
-  const htmlTitle = `${archiveType}: ${name} - ${siteTitle}`;
+  const postList = data.nodeByUri?.contentNodes?.edges.map((el) => el.node);
+  const heroContent = props.data.page.pageHeader;
 
   return (
     <>
@@ -24,56 +39,161 @@ export default function Component(props) {
         menuItems={menuItems}
       />
 
-      <main className="container-fluid">
-        <EntryHeader title={`Archive for ${archiveType}: ${name}`} />
+      <Hero 
+        headline={heroContent.headline || title}
+        subheadline={heroContent.subheadline}
+        layout={heroContent.layout}
+        image={heroContent.image}
+      />
 
-        <h3>Recent Posts</h3>
-        <ul>
-          {posts.nodes.map((post) => (
-            <Link key={post.id} href={post.uri}>
-              <li>{post.title}</li>
-            </Link>
-          ))}
-        </ul>
-      </main>
+      <Main>
+        <>
+          <EntryHeader title={`${__typename}: ${name}`} />
+          <div className="container-fluid">
+            {/* <Posts posts={postList} /> */}
+            {/* <LoadMore
+              className="text-center"
+              hasNextPage={data.nodeByUri?.contentNodes?.pageInfo.hasNextPage}
+              endCursor={data.nodeByUri?.contentNodes?.pageInfo.endCursor}
+              isLoading={loading}
+              fetchMore={fetchMore}
+            /> */}
+          </div>
+        </>
+      </Main>
 
       <Footer />
     </>
   );
 }
 
-Component.variables = (seedQuery, ctx) => {
+Component.variables = ({ uri }) => {
   return {
-    uri: seedQuery.uri,
+    uri,
+    first: appConfig.postsPerPage,
+    after: '',
   };
 };
 
 Component.query = gql`
   ${Header.fragments.entry}
-  query GetArchive($uri: String!) {
+  ${Hero.fragments.entry}
+  ${BlogInfoFragment}
+  ${FeaturedImage.fragments.entry}
+  query GetCategoryPage(
+    $uri: String!
+    $first: Int!
+    $after: String!
+  ) {
     nodeByUri(uri: $uri) {
-      archiveType: __typename
-      ... on Category {
+      __typename
+      id
+      uri
+      ... on ContentType {
         name
-        posts {
-          nodes {
-            id
-            title
-            uri
+        description
+        label
+        contentNodes(first: $first, after: $after) {
+          edges {
+            node {
+              id
+              ... on NodeWithTitle {
+                title
+              }
+              ... on NodeWithContentEditor {
+                content
+              }
+              date
+              uri
+              ...FeaturedImageFragment
+              ... on NodeWithAuthor {
+                author {
+                  node {
+                    name
+                  }
+                }
+              }
+            }
+          }
+          pageInfo {
+            hasNextPage
+            hasPreviousPage
+            startCursor
+            endCursor
           }
         }
       }
-      ... on Tag {
+      ... on TermNode {
         name
-        posts {
-          nodes {
-            id
-            title
-            uri
+        description
+        ... on Category {
+          contentNodes(first: $first, after: $after) {
+            edges {
+              node {
+                id
+                ... on NodeWithTitle {
+                  title
+                }
+                ... on NodeWithContentEditor {
+                  content
+                }
+                date
+                uri
+                ...FeaturedImageFragment
+                ... on NodeWithAuthor {
+                  author {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              startCursor
+              endCursor
+            }
+          }
+        }
+        ... on Tag {
+          contentNodes(first: $first, after: $after) {
+            edges {
+              node {
+                id
+                ... on NodeWithTitle {
+                  title
+                }
+                ... on NodeWithContentEditor {
+                  content
+                }
+                date
+                uri
+                ...FeaturedImageFragment
+                ... on NodeWithAuthor {
+                  author {
+                    node {
+                      name
+                    }
+                  }
+                }
+              }
+            }
+            pageInfo {
+              hasNextPage
+              hasPreviousPage
+              startCursor
+              endCursor
+            }
           }
         }
       }
     }
+    generalSettings {
+      ...BlogInfoFragment
+    }
     ...HeaderFragment
+    ...HeroFragment
   }
 `;

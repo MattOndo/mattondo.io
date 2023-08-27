@@ -57,19 +57,23 @@ module.exports = {
       addBase({
         'h1': { 
           fontSize: theme('fontSize.2xl'),
-          fontFamily: theme('fontFamily.body')
+          fontFamily: theme('fontFamily.body'),
+          fontWeight: 700
         },
         'h2': { 
           fontSize: theme('fontSize.xl'),
-          fontFamily: theme('fontFamily.body')
+          fontFamily: theme('fontFamily.body'),
+          fontWeight: 700
         },
         'h3': { 
           fontSize: theme('fontSize.lg'),
-          fontFamily: theme('fontFamily.body')
+          fontFamily: theme('fontFamily.body'),
+          fontWeight: 700
         },
         'h4': { 
           fontSize: theme('fontSize.base'),
-          fontFamily: theme('fontFamily.body')
+          fontFamily: theme('fontFamily.body'),
+          fontWeight: 700
         },
         'h5': { 
           fontSize: theme('fontSize.sm'),

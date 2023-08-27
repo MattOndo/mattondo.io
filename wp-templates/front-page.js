@@ -1,15 +1,17 @@
 import { gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
-import Header from "../components/header";
-import EntryHeader from "../components/entry-header";
-import Footer from "../components/footer";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import EntryHeader from "../components/EntryHeader";
+import Footer from "../components/Footer";
 import style from "../styles/front-page.module.css";
 
 export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
+  const heroContent = props.data.page.pageHeader;
 
   return (
     <>
@@ -21,6 +23,13 @@ export default function Component(props) {
         siteTitle={siteTitle}
         siteDescription={siteDescription}
         menuItems={menuItems}
+      />
+
+      <Hero 
+        headline={heroContent.headline || title}
+        subheadline={heroContent.subheadline}
+        layout={heroContent.layout}
+        image={heroContent.image}
       />
 
       <main className="container-fluid">
@@ -80,9 +89,18 @@ export default function Component(props) {
   );
 }
 
+Component.variables = ({ databaseId }, ctx) => {
+  return {
+    databaseId,
+    asPreview: ctx?.asPreview,
+  };
+};
+
 Component.query = gql`
   ${Header.fragments.entry}
-  query GetHomePage {
+  ${Hero.fragments.entry}
+  query GetHomePage($databaseId: ID!, $asPreview: Boolean = false) {
     ...HeaderFragment
+    ...HeroFragment
   }
 `;
