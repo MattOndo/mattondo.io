@@ -1,3 +1,15 @@
 .font-display {
   font-weight: 400;
 }
+
+.post-list .excerpt p {
+  @apply text-sm;
+}
+
+.post-list .card:hover p.continue {
+  @apply inline-block;
+  @apply text-teal;
+  @apply bg-teal;
+  @apply bg-opacity-10;
+  outline: dotted 3px var(--color-teal);
+}

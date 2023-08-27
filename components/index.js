@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Hero from "./Hero";
 import { NavLink } from "./NavLink";
 import FeaturedImage from "./FeaturedImage";
+import Posts from "./Posts";
 
 export {
   EntryHeader,
@@ -11,5 +12,6 @@ export {
   Footer,
   Hero,
   NavLink,
-  FeaturedImage
+  FeaturedImage,
+  Posts
 }

@@ -1,9 +1,8 @@
 import React from 'react';
 import { gql } from '@apollo/client';
 import Link from 'next/link';
-import { FeaturedImage, } from 'components';
-import appConfig from 'app.config';
-import useFocusFirstNewResult from 'hooks/useFocusFirstNewResult';
+import FeaturedImage from '../FeaturedImage';
+import appConfig from '/app.config';
 
 
 /**
@@ -14,59 +13,47 @@ import useFocusFirstNewResult from 'hooks/useFocusFirstNewResult';
  * @param {string} props.intro Message to show as an introduction text.
  * @returns {React.ReactElement} The Projects component
  */
-function Posts({ posts, intro, id }) {
-  const { firstNewResultRef, firstNewResultIndex } =
-    useFocusFirstNewResult(posts);
+export default function Posts({ posts }) {
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <section {...(id && { id })}>
-      {intro && <p>{intro}</p>}
+    <section>
       <div className={'post-list'}>
         {posts?.map((post, i) => {
-          const isFirstNewResult = i === firstNewResultIndex;
           let image = post?.featuredImage?.node;
 
           if (!image && appConfig.archiveDisplayFeaturedImage) {
             image = {
-              sourceUrl: '/static/banner.jpeg',
-              altText: 'Downtown Austin, Texas skyline',
+              sourceUrl: 'https://bpmattondoio.wpengine.com/wp-content/uploads/IMG_2880-scaled.jpeg',
+              mediaDetails: {
+                width: 100,
+                height: 100,
+              }
             };
           }
 
           return (
             <div
-              className={'container'}
+              className='container-fluid'
               key={post.id ?? ''}
               id={`post-${post.id}`}
             >
-              <div className={'card'}>
-                {/* <Link href={post?.uri ?? '#'}>
-                  <a className={'image-holder'} tabIndex="-1">
-                    <FeaturedImage
-                      className={'image'}
-                      image={image}
-                      width={340}
-                      height={340}
-                      priority={i < appConfig.postsAboveTheFold}
-                    />
-                  </a>
-                </Link> */}
-
-                {post.title}
-                {/* <Heading level="h4" className={'header'}>
-                  <Link href={post?.uri ?? '#'}>
-                    <a ref={isFirstNewResult ? firstNewResultRef : null}>
-                      {post.title}
-                    </a>
-                  </Link>
-                </Heading> */}
-                {/* <PostInfo
-                  className={'info'}
-                  author={post?.author?.node?.name}
-                  date={post?.date}
-                /> */}
-              </div>
+              <Link
+                href={post.uri}
+                className="card grid grid-cols-1 md:grid-cols-[25%_auto] gap-6 items-center justify-center my-20 bg-slate p-4 border-r-2 border-teal rounded-lg"
+              >
+                <FeaturedImage
+                  image={image}
+                  width={800}
+                  height={200}
+                  style={{width:800,height:"auto"}}
+                />
+                <div className='p-6'>
+                  <h3 className='block w-full'>{post.title}</h3>
+                  <div className="excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
+                  <p className="continue text-sm mt-5 font-mono p-2 -ml-2">Continue Reading &gt;</p>
+                </div>
+              </Link>
             </div>
           );
         })}
@@ -93,5 +80,3 @@ Posts.fragments = {
     }
   `,
 };
-
-export default Posts;

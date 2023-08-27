@@ -1,19 +1,21 @@
-import { gql } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import Link from "next/link";
 import Head from "next/head";
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { 
   Header, 
   Hero,
-  EntryHeader,
   Footer,
-  FeaturedImage
+  FeaturedImage,
+  Posts
  } from "../components";
 import appConfig from '/app.config';
 
 export default function Component(props) {
-  const { data, loading, fetchMore } = useQuery(Archive.query, {
-    variables: Archive.variables({ uri }),
+  const { __typename, name, posts, uri } = props.data.nodeByUri;
+
+  const { data, loading, fetchMore } = useQuery(Component.query, {
+    variables: Component.variables({ uri }),
   });
 
   if (loading) {
@@ -23,14 +25,14 @@ export default function Component(props) {
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
-  const { archiveType, name, posts } = props.data.nodeByUri;
   const postList = data.nodeByUri?.contentNodes?.edges.map((el) => el.node);
-  const heroContent = props.data.page.pageHeader;
+
+  console.log(postList);
 
   return (
     <>
       <Head>
-        <title>{`${archiveType}: ${name} - ${siteTitle}`}</title>
+        <title>Matt Ondo's Archive</title>
       </Head>
 
       <Header
@@ -40,27 +42,23 @@ export default function Component(props) {
       />
 
       <Hero 
-        headline={heroContent.headline || title}
-        subheadline={heroContent.subheadline}
-        layout={heroContent.layout}
-        image={heroContent.image}
+        headline="Archive"
+        subheadline="Welcome to my brain"
+        layout="Text Only"
       />
 
-      <Main>
-        <>
-          <EntryHeader title={`${__typename}: ${name}`} />
-          <div className="container-fluid">
-            {/* <Posts posts={postList} /> */}
-            {/* <LoadMore
-              className="text-center"
-              hasNextPage={data.nodeByUri?.contentNodes?.pageInfo.hasNextPage}
-              endCursor={data.nodeByUri?.contentNodes?.pageInfo.endCursor}
-              isLoading={loading}
-              fetchMore={fetchMore}
-            /> */}
-          </div>
-        </>
-      </Main>
+      <main>
+        <div className="container-fluid">
+          <Posts posts={postList} />
+          {/* <LoadMore
+            className="text-center"
+            hasNextPage={data.nodeByUri?.contentNodes?.pageInfo.hasNextPage}
+            endCursor={data.nodeByUri?.contentNodes?.pageInfo.endCursor}
+            isLoading={loading}
+            fetchMore={fetchMore}
+          /> */}
+        </div>
+      </main>
 
       <Footer />
     </>
@@ -77,7 +75,6 @@ Component.variables = ({ uri }) => {
 
 Component.query = gql`
   ${Header.fragments.entry}
-  ${Hero.fragments.entry}
   ${BlogInfoFragment}
   ${FeaturedImage.fragments.entry}
   query GetCategoryPage(
@@ -102,6 +99,9 @@ Component.query = gql`
               }
               ... on NodeWithContentEditor {
                 content
+              }
+              ... on NodeWithExcerpt {
+                excerpt
               }
               date
               uri
@@ -194,6 +194,5 @@ Component.query = gql`
       ...BlogInfoFragment
     }
     ...HeaderFragment
-    ...HeroFragment
   }
 `;

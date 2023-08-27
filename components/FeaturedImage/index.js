@@ -29,14 +29,13 @@ export default function FeaturedImage({
   height = height ? height : image?.mediaDetails?.height;
 
   return src && width && height ? (
-    <figure className={[styles['featured-image'], className].join(' ')}>
+    <figure className={className}>
       <Image
         src={src}
         width={width}
         height={height}
         alt={altText}
-        objectFit="cover"
-        layout="responsive"
+        className="object-cover"
         {...props}
       />
     </figure>
