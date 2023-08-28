@@ -17,10 +17,12 @@ export default function Component(props) {
     return <>Loading...</>;
   }
   
-  const { title: siteTitle, description: siteDescription } =
-    props.data.generalSettings;
+  // Page Details
+  const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const { title, content, date, author } = props.data.post;
+
+  // Blocks
   const contentBlocks = props.data.post.editorBlocks;
   const blocks = flatListToHierarchical(contentBlocks);
 
