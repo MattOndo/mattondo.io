@@ -1,17 +1,25 @@
 import { gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import EntryHeader from "../components/EntryHeader";
-import Footer from "../components/Footer";
-import style from "../styles/front-page.module.css";
+import {
+  Header,
+  Hero,
+  Footer
+} from "../components";
+import { WordPressBlocksViewer } from '@faustwp/blocks';
+import { flatListToHierarchical } from '../utils'
+import blockFragments from '../fragments/BlockFragments';
 
 export default function Component(props) {
+  // Page Details
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const heroContent = props.data.page.pageHeader;
+
+  // Blocks
+  const contentBlocks = props.data.page.editorBlocks;
+  const blocks = flatListToHierarchical(contentBlocks);
 
   return (
     <>
@@ -33,55 +41,7 @@ export default function Component(props) {
       />
 
       <main className="container-fluid">
-        <EntryHeader title="Welcome to the Faust Scaffold Blueprint" />
-
-        <section className={style.cardGrid}>
-          <Link
-            href="https://faustjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={style.card}
-          >
-            <h3>Documentation →</h3>
-            <p>
-              Learn more about Faust.js through guides and reference
-              documentation.
-            </p>
-          </Link>
-
-          <Link
-            href="https://my.wpengine.com/atlas#/create/blueprint"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={style.card}
-          >
-            <h3>Blueprints →</h3>
-            <p>Explore production ready Faust.js starter projects.</p>
-          </Link>
-
-          <Link
-            href="https://wpengine.com/atlas"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={style.card}
-          >
-            <h3>Deploy →</h3>
-            <p>
-              Deploy your Faust.js app to Atlas along with your WordPress
-              instance.
-            </p>
-          </Link>
-
-          <Link
-            href="https://github.com/wpengine/faustjs"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={style.card}
-          >
-            <h3>Contribute →</h3>
-            <p>Visit us on GitHub to explore how you can contribute!</p>
-          </Link>
-        </section>
+        <WordPressBlocksViewer blocks={blocks}/>
       </main>
 
       <Footer />
@@ -99,7 +59,25 @@ Component.variables = ({ databaseId }, ctx) => {
 Component.query = gql`
   ${Header.fragments.entry}
   ${Hero.fragments.entry}
+  ${blockFragments().fragments}
   query GetHomePage($databaseId: ID!, $asPreview: Boolean = false) {
+    page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
+      title
+      content
+      date
+      editorBlocks(flat: true) {
+        __typename
+        key: clientId
+        parentId: parentClientId
+        renderedHtml
+        ${blockFragments().includes}
+      }
+      author {
+        node {
+          name
+        }
+      }
+    }
     ...HeaderFragment
     ...HeroFragment
   }

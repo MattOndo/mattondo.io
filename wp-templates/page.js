@@ -1,9 +1,13 @@
 import { gql } from "@apollo/client";
 import Head from "next/head";
-import EntryHeader from "../components/EntryHeader";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
+import {
+  Header,
+  Hero,
+  Footer
+} from "../components";
+import { WordPressBlocksViewer } from '@faustwp/blocks';
+import { flatListToHierarchical } from '../utils'
+import blockFragments from '../fragments/BlockFragments';
 
 export default function Component(props) {
   // Loading state for previews
@@ -11,8 +15,11 @@ export default function Component(props) {
     return <>Loading...</>;
   }
 
-  const { title: siteTitle, description: siteDescription } =
-    props.data.generalSettings;
+  // Blocks
+  const contentBlocks = props.data.page.editorBlocks;
+  const blocks = flatListToHierarchical(contentBlocks);
+
+  const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const { title, content } = props.data.page;
   const heroContent = props.data.page.pageHeader;
@@ -20,7 +27,7 @@ export default function Component(props) {
   return (
     <>
       <Head>
-        <title>{`${title} - ${siteTitle}`}</title>
+        <title>{siteTitle}</title>
       </Head>
 
       <Header
@@ -37,7 +44,7 @@ export default function Component(props) {
       />
 
       <main className="container-fluid">
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <WordPressBlocksViewer blocks={blocks}/>
       </main>
 
       <Footer />
@@ -55,10 +62,24 @@ Component.variables = ({ databaseId }, ctx) => {
 Component.query = gql`
   ${Header.fragments.entry}
   ${Hero.fragments.entry}
+  ${blockFragments().fragments}
   query GetPage($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
+      date
+      editorBlocks(flat: true) {
+        __typename
+        key: clientId
+        parentId: parentClientId
+        renderedHtml
+        ${blockFragments().includes}
+      }
+      author {
+        node {
+          name
+        }
+      }
     }
     ...HeaderFragment
     ...HeroFragment
