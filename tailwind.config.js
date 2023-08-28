@@ -8,6 +8,7 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx,css}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx,css}",
     "./wp-templates/**/*.{js,ts,jsx,tsx,mdx,css}",
+    "./wp-blocks/**/*.{js,ts,jsx,tsx,mdx,css}",
   ],
   theme: {
     screens: {
@@ -50,30 +51,69 @@ module.exports = {
       '3xl': 'var(--fontsize-3xl)',
       '4xl': 'var(--fontsize-4xl)',
     },
-    extend: {},
   },
+  safelist: [
+    'md:flex-row-reverse',
+
+    // Medium+ screen sizes
+    'md:w-1/2',
+    'md:w-1/3',
+    'md:w-2/3',
+    'md:w-1/4',
+    'md:w-2/4',
+    'md:w-3/4',
+    'md:w-1/5',
+    'md:w-2/5',
+    'md:w-3/5',
+    'md:w-4/5',
+    'md:w-1/6',
+    'md:w-2/6',
+    'md:w-3/6',
+    'md:w-4/6',
+    'md:w-5/6',
+    'md:w-1/12',
+    'md:w-2/12',
+    'md:w-3/12',
+    'md:w-4/12',
+    'md:w-5/12',
+    'md:w-6/12',
+    'md:w-7/12',
+    'md:w-8/12',
+    'md:w-9/12',
+    'md:w-10/12',
+    'md:w-11/12',
+    'md:w-full',
+  ],
   plugins: [
     plugin(function({ addBase, theme }) {
       addBase({
         'h1': { 
           fontSize: theme('fontSize.2xl'),
           fontFamily: theme('fontFamily.body'),
-          fontWeight: 700
+          fontWeight: 700,
+          margin: '1rem 0',
+          lineHeight: 1.1
         },
         'h2': { 
           fontSize: theme('fontSize.xl'),
           fontFamily: theme('fontFamily.body'),
-          fontWeight: 700
+          fontWeight: 700,
+          margin: '1rem 0',
+          lineHeight: 1.1
         },
         'h3': { 
           fontSize: theme('fontSize.lg'),
           fontFamily: theme('fontFamily.body'),
-          fontWeight: 700
+          fontWeight: 700,
+          margin: '1rem 0',
+          lineHeight: 1.1
         },
         'h4': { 
           fontSize: theme('fontSize.base'),
           fontFamily: theme('fontFamily.body'),
-          fontWeight: 700
+          fontWeight: 700,
+          margin: '1rem 0',
+          lineHeight: 1.1
         },
         'h5': { 
           fontSize: theme('fontSize.sm'),
@@ -86,9 +126,13 @@ module.exports = {
         'p': { 
           fontSize: theme('fontSize.base'),
           fontFamily: theme('fontFamily.body'),
-          margin: '1rem auto'
+          margin: '1rem auto',
+          lineHeight: 1.3
         },
-        'a': { fontFamily: theme('fontFamily.mono') },
+        'a': { 
+          fontFamily: theme('fontFamily.mono'),
+          color: theme('colors.teal')
+        },
       })
     })
   ]

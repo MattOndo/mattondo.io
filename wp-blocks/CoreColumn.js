@@ -2,14 +2,17 @@ import { gql } from '@apollo/client';
 import React from 'react';
 import className from 'classnames/bind';
 import { WordPressBlocksViewer } from '@faustwp/blocks';
+import { closestFraction } from '../utils'
 
 const cx = className.bind();
 
 export default function CoreColumn(props) {
   const attributes = props.attributes;
+
+  const widthClass = attributes.width ? 'md:w-'+closestFraction(attributes.width) : 'w-full'
   
   return (
-    <div className={cx([attributes.className, 'w-full'])}>
+    <div className={cx([attributes.className, 'w-full', widthClass])}>
       <WordPressBlocksViewer blocks={props.children}/>
     </div>
     );
