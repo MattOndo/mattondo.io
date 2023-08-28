@@ -38,12 +38,15 @@ export default function CoreImage(props) {
       {imageDimensions && (
         <Image
           src={attributes.src}
+          sizes="100vw"
           width={imageDimensions.width}
           height={imageDimensions.height}
-          sizes="100vw"
-          className="w-full h-auto"
+          className="w-full h-auto rounded-lg"
           alt={attributes.alt}
         />
+      )}
+      {attributes.caption && (
+        <figcaption>{attributes.figcaption}</figcaption>
       )}
     </figure>
     );

@@ -40,13 +40,13 @@ export default function Posts({ posts }) {
             >
               <Link
                 href={post.uri}
-                className="card grid grid-cols-1 md:grid-cols-[25%_auto] gap-6 items-center justify-center my-20 bg-slate p-4 border-r-2 border-teal rounded-lg"
+                className="card grid grid-cols-1 md:grid-cols-[33%_auto] gap-6 items-center justify-center my-20 bg-slate p-4 border-r-2 border-teal rounded-lg"
               >
                 <FeaturedImage
                   image={image}
-                  width={800}
-                  height={200}
-                  style={{width:800,height:"auto"}}
+                  width={image.mediaDetails.width}
+                  height={image.mediaDetails.height}
+                  imgClassName="w-full h-auto rounded-lg"
                 />
                 <div className='p-6'>
                   <h3 className='block w-full'>{post.title}</h3>
