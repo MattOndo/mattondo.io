@@ -2,19 +2,24 @@ import { gql } from "@apollo/client";
 import Link from "next/link";
 import {NavLink} from "../NavLink";
 import Icon from '../../assets/images/icon.svg';
+import NavIcon from '../../assets/images/hamburger.svg';
 import style from "./style.module.css";
 
 export default function Header({ siteTitle, siteDescription, menuItems }) {
 
   return (
-    <header className="w-full bg-black">
+    <header className="w-full bg-black sticky top-0">
       <div className="flex justify-between items-center pl-7">
         <Link href="/" className="flex gap-2 items-center">
           <Icon aria-label="Website Logo" />
           <h2 className="font-display text-teal">{siteTitle}</h2>
         </Link>
 
-        <nav className="block">
+        <nav id="nav" className={style.navMenu}>
+          <label for="navToggle">
+            <NavIcon aria-label="Menu" width="50" height="50" className="mr-7" />
+          </label>
+          <input type="checkbox" id="navToggle" className=""/>
           <ul className="flex">
             {menuItems.map((item) => (
               <li key={item.id}>

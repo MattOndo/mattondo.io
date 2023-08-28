@@ -2,11 +2,8 @@ import styles from "./style.module.css";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
-      Powered by{" "}
-      <a href="https://wpengine.com" target="_blank" rel="noopener noreferrer">
-        WP Engine
-      </a>
+    <footer className="container-fluid text-center mt-20 mb-9">
+      <small>Copyright Matt Ondo</small>
     </footer>
   );
 }

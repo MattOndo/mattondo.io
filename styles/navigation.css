@@ -1,0 +1,27 @@
+#nav ul {
+  @apply flex flex-col fixed left-0 top-[68px] w-full bg-black text-center justify-center opacity-0;
+  z-index: -9999;
+  transition: opacity 300ms ease-in-out;
+}
+
+#nav input#navToggle {
+  display: none;
+}
+#nav input#navToggle:checked ~ ul {
+  @apply opacity-100;
+}
+
+@media screen and (min-width: 768px) {
+  #nav ul {
+    position: relative;
+    flex-direction: row;
+    opacity: 1;
+    z-index: 9999;
+    top: unset;
+    left: unset;
+    transition: unset;
+  }
+  #nav label {
+    display: none;
+  }
+}
