@@ -1,18 +1,30 @@
 import { gql } from "@apollo/client";
 import Head from "next/head";
-import EntryHeader from "../components/EntryHeader";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
+import {
+  EntryHeader,
+  Footer,
+  Header,
+  Hero
+} from "../components";
+import { WordPressBlocksViewer } from '@faustwp/blocks';
+import blocks from '../wp-blocks';
+import { flatListToHierarchical } from '../utils'
+import blockFragments from '../fragments/BlockFragments';
 export default function Component(props) {
+
   // Loading state for previews
   if (props.loading) {
     return <>Loading...</>;
   }
-
+  
   const { title: siteTitle, description: siteDescription } =
     props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const { title, content, date, author } = props.data.post;
+  const contentBlocks = props.data.post.editorBlocks;
+  const blocks = flatListToHierarchical(contentBlocks);
+
+  const formattedDate = new Date(date).toLocaleDateString([],{ year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
     <>
@@ -26,9 +38,14 @@ export default function Component(props) {
         menuItems={menuItems}
       />
 
+      <Hero 
+        headline={title}
+        subheadline={formattedDate}
+        layout="Text Only"
+      />
+
       <main className="container-fluid">
-        <EntryHeader title={title} date={date} author={author.node.name} />
-        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <WordPressBlocksViewer blocks={blocks}/>
       </main>
 
       <Footer />
@@ -45,11 +62,19 @@ Component.variables = ({ databaseId }, ctx) => {
 
 Component.query = gql`
   ${Header.fragments.entry}
+  ${blockFragments().fragments}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
       content
       date
+      editorBlocks(flat: true) {
+        __typename
+        key: clientId
+        parentId: parentClientId
+        renderedHtml
+        ${blockFragments().includes}
+      }
       author {
         node {
           name
