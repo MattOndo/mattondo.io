@@ -19,7 +19,7 @@ export default function Hero({ headline, subheadline, layout, image }) {
         </div>
       }
       {layout === "Image Right" && 
-        <div className="container-fluid md:flex items-center my-20">
+        <div className="container-fluid md:flex items-center gap-8 my-20">
           <div className="w-full">
             <h1>{headline}</h1>
             <p>{subheadline}</p>
@@ -27,10 +27,12 @@ export default function Hero({ headline, subheadline, layout, image }) {
           <div className="w-full">
             <Image 
               src={src}
+              alt={image.altText}
               sizes={image.sizes}
               width={image.mediaDetails.width}
               height={image.mediaDetails.height}
-              className="w-full"
+              className="w-full rounded-lg"
+              priority={true}
             />
           </div>
         </div>

@@ -12,18 +12,18 @@ export default function Header({ siteTitle, siteDescription, menuItems }) {
       <div className="flex justify-between items-center pl-7">
         <Link href="/" className="flex gap-2 items-center">
           <Icon aria-label="Website Logo" />
-          <h2 className="font-display text-teal">{siteTitle}</h2>
+          <h2 className="font-body font-bold text-teal">{siteTitle}</h2>
         </Link>
 
         <nav id="nav" className={style.navMenu}>
-          <label for="navToggle">
+          <label htmlFor="navToggle">
             <NavIcon aria-label="Menu" width="50" height="50" className="mr-7" />
           </label>
           <input type="checkbox" id="navToggle" className=""/>
           <ul className="flex">
             {menuItems.map((item) => (
               <li key={item.id}>
-                <NavLink href={item.uri} className="block p-7 hover:bg-teal hover:bg-opacity-10 hover:text-teal">{item.label}</NavLink>
+                <NavLink href={item.uri} className="navLink block p-7 hover:bg-teal hover:bg-opacity-10">{item.label}</NavLink>
               </li>
             ))}
           </ul>

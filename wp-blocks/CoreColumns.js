@@ -12,7 +12,7 @@ export default function CoreColumns(props) {
   const cssValign = attributes.verticalAlignment ? 'items-'+attributes.verticalAlignment : null;
 
   return (
-    <div className={cx([attributes.className, cssValign, 'w-full md:flex gap-3'])}>
+    <div className={cx([attributes.className, cssValign, `w-full md:flex gap-8 my-20`])}>
       <WordPressBlocksViewer blocks={props.children}/>
     </div>
     );

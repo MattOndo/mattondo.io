@@ -1,5 +1,7 @@
 import { gql } from '@apollo/client';
 import Image from 'next/image';
+import className from 'classnames/bind';
+const cx = className.bind();
 
 /**
  * A page/post Featured Image component
@@ -12,6 +14,7 @@ import Image from 'next/image';
  */
 export default function FeaturedImage({
   className,
+  imgClassName,
   image,
   width,
   height,
@@ -29,13 +32,13 @@ export default function FeaturedImage({
   height = height ? height : image?.mediaDetails?.height;
 
   return src && width && height ? (
-    <figure className={className}>
+    <figure className={cx([className])}>
       <Image
         src={src}
         width={width}
         height={height}
         alt={altText}
-        className="object-cover"
+        className={cx([imgClassName, 'object-cover'])}
         {...props}
       />
     </figure>
