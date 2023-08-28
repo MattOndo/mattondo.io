@@ -85,7 +85,8 @@ module.exports = {
         },
         'p': { 
           fontSize: theme('fontSize.base'),
-          fontFamily: theme('fontFamily.body')
+          fontFamily: theme('fontFamily.body'),
+          margin: '1rem auto'
         },
         'a': { fontFamily: theme('fontFamily.mono') },
       })
