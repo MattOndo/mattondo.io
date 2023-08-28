@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 import Head from "next/head";
 import {
-  EntryHeader,
   Footer,
   Header,
   Hero
@@ -46,7 +45,7 @@ export default function Component(props) {
         layout="Text Only"
       />
 
-      <main className="container-fluid">
+      <main className="container-fluid prose">
         <WordPressBlocksViewer blocks={blocks}/>
       </main>
 

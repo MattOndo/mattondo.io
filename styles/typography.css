@@ -20,3 +20,18 @@ p > a:not(.navLink):focus {
   margin-left: -.25rem;
   margin-right: -.25rem;
 }
+
+ul ul, ol ul { 
+  list-style-type: circle; 
+  list-style-position: outside; 
+  margin-left: 1.25rem; 
+}
+ol ol, ul ol { 
+  list-style-type: lower-latin; 
+  list-style-position: outside; 
+  margin-left: 1.25rem; 
+}
+ul li,
+ol li {
+  display: list-item;
+}

@@ -133,8 +133,21 @@ module.exports = {
           fontFamily: theme('fontFamily.mono'),
           color: theme('colors.teal')
         },
+        'ul': { 
+          listStyleType: 'disc',
+          listStylePosition: 'outside',
+          marginLeft: '1.25rem'
+        },
+        'ol': { 
+          listStyleType: 'decimal',
+          listStylePosition: 'outside',
+          marginLeft: '1.25rem'
+        },
+        'li': {
+          paddingLeft: '.5rem'
+        }
       })
-    })
-  ]
+    }),
+  ],
 }
 
