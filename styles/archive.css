@@ -1,0 +1,11 @@
+.post-list .excerpt p {
+  @apply text-sm;
+}
+
+.post-list .card {
+  @apply text-lighter-gray;
+}
+.post-list .card:hover p.continue {
+  @apply text-teal;
+}
+

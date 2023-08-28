@@ -2,14 +2,21 @@
   font-weight: 400;
 }
 
-.post-list .excerpt p {
-  @apply text-sm;
-}
-
-.post-list .card:hover p.continue {
-  @apply inline-block;
-  @apply text-teal;
+a:hover,
+a:focus,
+a:focus-visible { 
   @apply bg-teal;
   @apply bg-opacity-10;
-  outline: dotted 3px var(--color-teal);
+  outline-width: .1rem; 
+  outline-style: dashed;
+  outline-offset: -.1rem;
+  @apply outline-teal; 
+}
+
+p > a:not(.navLink):hover,
+p > a:not(.navLink):focus {
+  padding-left: .25rem;
+  padding-right: .25rem;
+  margin-left: -.25rem;
+  margin-right: -.25rem;
 }

@@ -10,6 +10,7 @@ html {
 @import './type-scale.css';
 @import './typography.css';
 @import './layout.css';
+@import './archive.css';
 @import './navigation.css';
 
 body {

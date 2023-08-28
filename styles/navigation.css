@@ -2,6 +2,7 @@
   @apply flex flex-col fixed left-0 top-[68px] w-full bg-black text-center justify-center opacity-0;
   z-index: -9999;
   transition: opacity 300ms ease-in-out;
+  pointer-events: none;
 }
 
 #nav input#navToggle {
@@ -9,6 +10,7 @@
 }
 #nav input#navToggle:checked ~ ul {
   @apply opacity-100;
+  pointer-events: all;
 }
 
 @media screen and (min-width: 768px) {
@@ -20,6 +22,7 @@
     top: unset;
     left: unset;
     transition: unset;
+    pointer-events: all;
   }
   #nav label {
     display: none;
