@@ -27,8 +27,6 @@ export default function Component(props) {
   const menuItems = props.data.primaryMenuItems.nodes;
   const postList = data.nodeByUri?.contentNodes?.edges.map((el) => el.node);
 
-  console.log(postList);
-
   return (
     <>
       <Head>
