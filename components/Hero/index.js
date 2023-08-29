@@ -37,25 +37,6 @@ export default function Hero({ headline, subheadline, layout, image, ...props })
           </div>
         </div>
       }
-      {layout === "Single Post" && 
-        <div className="container-fluid md:flex items-center gap-8 py-20">
-          <div className="w-8/12">
-            <h1>{headline}</h1>
-            <p className="font-mono text-teal text-xs">{subheadline}</p>
-          </div>
-          <div className="w-4/12">
-            <Image 
-              src={src}
-              alt={image.altText}
-              sizes={image.sizes}
-              width={image.mediaDetails.width}
-              height={image.mediaDetails.height}
-              className="w-full rounded-lg"
-              priority={true}
-            />
-          </div>
-        </div>
-      }
     </section>
   );
 }
