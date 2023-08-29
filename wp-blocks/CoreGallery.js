@@ -15,16 +15,28 @@ export default function CoreGallery(props) {
   const images = props.children;
 
   return (
-    <Carousel showArrows={true} showDots={false}>
+    <Carousel 
+      showArrows={true} 
+      showDots={false} 
+      emulateTouch={true} 
+      infiniteLoop={true} 
+      showStatus={false} 
+      showIndicators={false} 
+      autoPlay={true} 
+      interval={4000}
+      transitionTime={600}
+      useKeyboardArrows={true}
+      >
         {images.map(({ key, attributes }) => (
-          <div>
+          <figure>
             <img 
               id={key}
               src={attributes.src} 
               width={0}
               height={0}
               className='w-full' />
-          </div>
+              <figcaption>{attributes.alt}</figcaption>
+          </figure>
         ))}
     </Carousel>
     );
