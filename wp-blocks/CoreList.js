@@ -2,10 +2,9 @@ import { gql } from '@apollo/client';
 import React from 'react';
 
 export default function CoreList(props) {
-  const attributes = props.attributes;
-  const TagName = attributes.ordered ? `ol` : `ul`;
+  
   return (
-    <TagName dangerouslySetInnerHTML={{ __html: attributes.values }}></TagName>
+    <div dangerouslySetInnerHTML={{ __html: props.renderedHtml }}></div>
     );
 }
 
