@@ -12,10 +12,12 @@
     "@faustwp/blocks": "^2.0.0",
     "@faustwp/cli": "^1.0.0",
     "@faustwp/core": "^0.0.0-20230825203750",
+    "embla-carousel-react": "^8.0.0-rc12",
     "graphql": "^16.6.0",
     "next": "^13.1.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

@@ -83,6 +83,9 @@ module.exports = {
     'md:w-10/12',
     'md:w-11/12',
     'md:w-full',
+    {
+      pattern: /grid-cols-/
+    }
   ],
   plugins: [
     plugin(function({ addBase, theme }) {

@@ -4,6 +4,7 @@ import CoreColumns from "./CoreColumns";
 import CoreColumn from "./CoreColumn";
 import CoreHeading from "./CoreHeading";
 import CoreList from "./CoreList";
+import CoreGallery from "./CoreGallery";
 
 export default {
   CoreParagraph,
@@ -11,5 +12,6 @@ export default {
   CoreColumns,
   CoreColumn,
   CoreHeading,
-  CoreList
+  CoreList,
+  CoreGallery
 };
