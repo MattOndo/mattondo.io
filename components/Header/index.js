@@ -10,7 +10,7 @@ export default function Header({ siteTitle, siteDescription, menuItems }) {
   return (
     <header className="w-full bg-black sticky top-0 z-10">
       <div className="flex justify-between items-center pl-7">
-        <Link href="/" className="flex gap-2 items-center">
+        <Link href="/" className="flex gap-2 items-center no-hover-style">
           <Icon aria-label="Website Logo" />
           <h2 className="font-body font-bold text-teal">{siteTitle}</h2>
         </Link>

@@ -11,7 +11,7 @@ export default function Hero({ headline, subheadline, layout, image, ...props })
   }
 
   return (
-    <section className="pageHero container-fluid">
+    <section className="pageHero">
       {layout === "Text Only" &&
         <div className="text-center py-20">
           <h1>{headline}</h1>

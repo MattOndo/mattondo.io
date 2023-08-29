@@ -49,9 +49,7 @@ export default function Component(props) {
       <Hero 
         headline={title}
         subheadline={formattedDate}
-        // layout="Text Only"
-        layout="Single Post"
-        image={featuredImage.node}
+        layout="Text Only"
       />
 
       <main className="container-fluid prose">

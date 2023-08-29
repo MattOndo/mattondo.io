@@ -2,9 +2,9 @@
   font-weight: 400;
 }
 
-a:hover,
-a:focus,
-a:focus-visible { 
+a:not(.no-hover-style):hover,
+a:not(.no-hover-style):focus,
+a:not(.no-hover-style):focus-visible { 
   @apply bg-teal;
   @apply bg-opacity-10;
   outline-width: .1rem; 

@@ -1,0 +1,41 @@
+
+.carousel-root {
+  @apply my-8;
+}
+.carousel .slide {
+  display: flex;
+  justify-content: center;
+}
+.carousel .carousel-status {
+  display:none;
+}
+.carousel-root img {
+  @apply rounded-lg;
+}
+.carousel .thumbs-wrapper {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.carousel .thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+}
+.carousel .thumb {
+  display: inline-block;
+  margin-right: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  border: .1rem dashed transparent;
+}
+.carousel .thumb:hover {
+  border-width: .1rem;
+  @apply border-dashed border-teal;
+}
+
+.carousel .thumb.selected {
+  border-width: .1rem;
+  @apply border-dashed border-teal bg-teal;
+}

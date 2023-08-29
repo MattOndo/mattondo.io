@@ -13,6 +13,8 @@ html {
 @import './archive.css';
 @import './navigation.css';
 
+@import './react-carousel.css';
+
 body {
   @apply bg-blue;
   @apply text-lighter-gray;
