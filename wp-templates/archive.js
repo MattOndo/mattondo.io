@@ -7,7 +7,8 @@ import {
   Hero,
   Footer,
   FeaturedImage,
-  Posts
+  Posts,
+  SEO
  } from "../components";
 import appConfig from '/app.config';
 
@@ -29,9 +30,10 @@ export default function Component(props) {
 
   return (
     <>
-      <Head>
-        <title>Matt Ondo's Archive</title>
-      </Head>
+      <SEO
+        title="Matt's Archive"
+        description={siteDescription}
+      />
 
       <Header
         siteTitle={siteTitle}

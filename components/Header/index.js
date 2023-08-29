@@ -8,7 +8,7 @@ import style from "./style.module.css";
 export default function Header({ siteTitle, siteDescription, menuItems }) {
 
   return (
-    <header className="w-full bg-black sticky top-0">
+    <header className="w-full bg-black sticky top-0 z-10">
       <div className="flex justify-between items-center pl-7">
         <Link href="/" className="flex gap-2 items-center">
           <Icon aria-label="Website Logo" />

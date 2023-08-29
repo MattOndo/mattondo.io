@@ -3,10 +3,11 @@ import Head from "next/head";
 import {
   Header,
   Hero,
-  Footer
+  Footer,
+  SEO
 } from "../components";
 import { WordPressBlocksViewer } from '@faustwp/blocks';
-import { flatListToHierarchical } from '../utils'
+import { flatListToHierarchical, pageTitle } from '../utils'
 import blockFragments from '../fragments/BlockFragments';
 
 export default function Component(props) {
@@ -26,9 +27,7 @@ export default function Component(props) {
 
   return (
     <>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
+      <SEO title={`Matt's ${heroContent.headline || title}`} />
 
       <Header
         siteTitle={siteTitle}

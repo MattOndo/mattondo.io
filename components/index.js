@@ -5,6 +5,7 @@ import Hero from "./Hero";
 import { NavLink } from "./NavLink";
 import FeaturedImage from "./FeaturedImage";
 import Posts from "./Posts";
+import SEO from "./Seo";
 
 export {
   EntryHeader,
@@ -13,5 +14,6 @@ export {
   Hero,
   NavLink,
   FeaturedImage,
-  Posts
+  Posts,
+  SEO
 }

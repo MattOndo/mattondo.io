@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import Image from 'next/image'
 
-export default function Hero({ headline, subheadline, layout, image }) {
+export default function Hero({ headline, subheadline, layout, image, ...props }) {
 
   let src;
   if (image?.sourceUrl instanceof Function) {
@@ -13,18 +13,37 @@ export default function Hero({ headline, subheadline, layout, image }) {
   return (
     <section className="pageHero container-fluid">
       {layout === "Text Only" &&
-        <div className="text-center my-20">
+        <div className="text-center py-20">
           <h1>{headline}</h1>
           <p className="font-mono text-teal text-xs">{subheadline}</p>
         </div>
       }
       {layout === "Image Right" && 
-        <div className="container-fluid md:flex items-center gap-8 my-20">
+        <div className="container-fluid md:flex items-center gap-8 py-20">
           <div className="w-full">
             <h1>{headline}</h1>
             <p>{subheadline}</p>
           </div>
           <div className="w-full">
+            <Image 
+              src={src}
+              alt={image.altText}
+              sizes={image.sizes}
+              width={image.mediaDetails.width}
+              height={image.mediaDetails.height}
+              className="w-full rounded-lg"
+              priority={true}
+            />
+          </div>
+        </div>
+      }
+      {layout === "Single Post" && 
+        <div className="container-fluid md:flex items-center gap-8 py-20">
+          <div className="w-8/12">
+            <h1>{headline}</h1>
+            <p className="font-mono text-teal text-xs">{subheadline}</p>
+          </div>
+          <div className="w-4/12">
             <Image 
               src={src}
               alt={image.altText}

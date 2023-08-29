@@ -4,7 +4,8 @@ import Link from "next/link";
 import {
   Header,
   Hero,
-  Footer
+  Footer,
+  SEO
 } from "../components";
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import { flatListToHierarchical } from '../utils'
@@ -23,9 +24,7 @@ export default function Component(props) {
 
   return (
     <>
-      <Head>
-        <title>{siteTitle}</title>
-      </Head>
+      <SEO title={siteTitle} description={siteDescription} />
 
       <Header
         siteTitle={siteTitle}

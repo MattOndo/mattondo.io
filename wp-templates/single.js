@@ -3,11 +3,12 @@ import Head from "next/head";
 import {
   Footer,
   Header,
-  Hero
+  Hero,
+  SEO
 } from "../components";
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
-import { flatListToHierarchical } from '../utils'
+import { flatListToHierarchical, pageTitle } from '../utils'
 import blockFragments from '../fragments/BlockFragments';
 export default function Component(props) {
 
@@ -19,7 +20,7 @@ export default function Component(props) {
   // Page Details
   const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
-  const { title, content, date, author } = props.data.post;
+  const { title, content, featuredImage, date, author } = props.data.post;
 
   // Blocks
   const contentBlocks = props.data.post.editorBlocks;
@@ -29,9 +30,15 @@ export default function Component(props) {
 
   return (
     <>
-      <Head>
-        <title>{`${title} - ${siteTitle}`}</title>
-      </Head>
+      <SEO
+        title={pageTitle(
+          props?.data?.generalSettings,
+          title,
+          props?.data?.generalSettings?.title
+        )}
+        description={siteDescription}
+        imageUrl={featuredImage?.node?.sourceUrl}
+      />
 
       <Header
         siteTitle={siteTitle}
@@ -42,7 +49,9 @@ export default function Component(props) {
       <Hero 
         headline={title}
         subheadline={formattedDate}
-        layout="Text Only"
+        // layout="Text Only"
+        layout="Single Post"
+        image={featuredImage.node}
       />
 
       <main className="container-fluid prose">
@@ -69,6 +78,16 @@ Component.query = gql`
       title
       content
       date
+      featuredImage {
+        node {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
+          }
+        }
+      }
       editorBlocks(flat: true) {
         __typename
         key: clientId
