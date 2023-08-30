@@ -37,14 +37,28 @@ export default function Tracking() {
             if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
               console.log('Resolving:',url.href)
             }
-            if (url.href === 'https://cdn.heapanalytics.com/js/heap-1605455257.js') {
-              console.log('Proxying:',url.href, 'as', 'https://proxy.mattondo.io/cors/?modify&proxyUrl='+url.href);
-              var proxyUrl = new URL('https://proxy.mattondo.io/cors/?modify&proxyUrl='+url.href);
+
+            // Proxy Heap
+            if (url.pathname.startsWith('https://cdn.heapanalytics.com/')) {
+              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+                console.log('Proxy:','https://proxy.mattondo.io/heap'+url.pathname,'->',url.href)
+              }
+              var proxyUrl = new URL('https://proxy.mattondo.io/heap'+url.pathname);
               return proxyUrl;
-            } else {
-              console.error('Did not proxy')
-              return url;
             }
+            // Proxy Segment
+            else if (url.pathname.startsWith('https://cdn.segment.com/')) {
+              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+                console.log('Proxy:','https://proxy.mattondo.io/segment'+url.pathname,'->',url.href)
+              }
+              var proxyUrl = new URL('https://proxy.mattondo.io/segment'+url.pathname);
+              return proxyUrl;
+            }
+
+            if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+              console.log('No proxy needed:',url.href)
+            }
+            return url;
             
           }}
           debug={process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG}
