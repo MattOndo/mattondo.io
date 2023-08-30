@@ -2,13 +2,15 @@
   "name": "@faustwp/faust-scaffold",
   "private": true,
   "scripts": {
-    "dev": "faust dev",
-    "build": "faust build",
+    "dev": "npm run partytown && faust dev",
+    "build": "faust npm run partytown && build",
     "generate": "faust generatePossibleTypes",
-    "start": "faust start"
+    "start": "faust start",
+    "partytown": "partytown copylib public/~partytown"
   },
   "dependencies": {
     "@apollo/client": "^3.7.7",
+    "@builder.io/partytown": "^0.8.0",
     "@faustwp/blocks": "^2.0.0",
     "@faustwp/cli": "^1.0.0",
     "@faustwp/core": "^0.0.0-20230825203750",
