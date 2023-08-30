@@ -42,14 +42,14 @@ export default function Tracking() {
               var proxyUrl = new URL('https://proxy.mattondo.io/heap'+url.pathname);
               return proxyUrl;
             }
-            // // Proxy Segment
-            // else if (url.pathname.startsWith('https://cdn.segment.com/')) {
-            //   if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
-            //     console.log('Proxy:','https://proxy.mattondo.io/segment'+url.pathname,'->',url.href)
-            //   }
-            //   var proxyUrl = new URL('https://proxy.mattondo.io/segment'+url.pathname);
-            //   return proxyUrl;
-            // }
+            // Proxy Segment
+            else if (url.pathname.startsWith('https://cdn.segment.com/')) {
+              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+                console.log('Proxy:','https://proxy.mattondo.io/segment'+url.pathname,'->',url.href)
+              }
+              var proxyUrl = new URL('https://proxy.mattondo.io/segment'+url.pathname);
+              return proxyUrl;
+            }
 
             if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
               console.log('No proxy needed:',url.href)
