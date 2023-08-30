@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "npm run partytown && faust dev",
-    "build": "faust npm run partytown && build",
+    "build": "npm run partytown && faust build",
     "generate": "faust generatePossibleTypes",
     "start": "faust start",
     "partytown": "partytown copylib public/~partytown"
