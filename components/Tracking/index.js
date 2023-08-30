@@ -33,6 +33,21 @@ export default function Tracking() {
             "analytics.debug",
             "analytics.page",
           ]}
+          resolveUrl={function(url, location, type){
+            if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+              console.log('Resolving:',url.href)
+            }
+            if (url.href === 'https://cdn.heapanalytics.com/js/heap-1605455257.js'
+                || url.href === 'https://cdn.segment.com/analytics.js/v1/zuIHYSvZCGn3vopGDgVtOh2iSp6mGEdp/analytics.min.js') {
+              console.log('Proxying:',url.href, 'as', 'https://proxy.mattondo.io/cors/?modify&proxyUrl='+url.href);
+              var proxyUrl = new URL('https://proxy.mattondo.io/cors/?modify&proxyUrl='+url.href);
+              return proxyUrl;
+            } else {
+              console.error('Did not proxy')
+              return url;
+            }
+            
+          }}
           debug={process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG}
         />
       </Head>
