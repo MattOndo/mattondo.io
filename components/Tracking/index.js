@@ -35,7 +35,7 @@ export default function Tracking() {
           ]}
           resolveUrl={function(url, location, type){
             // Proxy Heap
-            if (url.pathname.startsWith('https://cdn.heapanalytics.com/')) {
+            if (url.href.startsWith('https://cdn.heapanalytics.com/')) {
               if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
                 console.log('Proxy:','https://proxy.mattondo.io/heap'+url.pathname,'->',url.href)
               }
@@ -43,7 +43,7 @@ export default function Tracking() {
               return proxyUrl;
             }
             // Proxy Segment
-            else if (url.pathname.startsWith('https://cdn.segment.com/')) {
+            else if (url.href.startsWith('https://cdn.segment.com/')) {
               if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
                 console.log('Proxy:','https://proxy.mattondo.io/segment'+url.pathname,'->',url.href)
               }
