@@ -42,6 +42,14 @@ export default function Tracking() {
               var proxyUrl = new URL('https://cdn.heap.mattondo.io'+url.pathname);
               return proxyUrl;
             }
+            // Proxy Segment
+            if (url.hostname === 'cdn.segment.com') {
+              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+                console.log('Proxy:','https://cdn.segment.mattondo.io'+url.pathname,'->',url.href)
+              }
+              var proxyUrl = new URL('https://cdn.segment.mattondo.io'+url.pathname);
+              return proxyUrl;
+            }
 
             if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
               console.log('No proxy needed:',url.href)
