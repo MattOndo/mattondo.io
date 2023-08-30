@@ -37,9 +37,9 @@ export default function Tracking() {
             // Proxy Heap
             if (url.href === 'https://cdn.heapanalytics.com/js/heap-1605455257.js') {
               if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
-                console.log('Proxy:','https://proxy.mattondo.io/heap'+url.pathname,'->',url.href)
+                console.log('Proxy:','https://proxy.mattondo.io'+url.pathname,'->',url.href)
               }
-              var proxyUrl = new URL('https://proxy.mattondo.io/heap'+url.pathname);
+              var proxyUrl = new URL('https://proxy.mattondo.io'+url.pathname);
               return proxyUrl;
             }
 
