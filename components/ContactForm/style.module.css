@@ -1,0 +1,64 @@
+.inputField {
+  @apply
+    appearance-none
+    rounded-lg
+    h-10
+    bg-light-gray
+    focus-visible:outline-teal
+    focus-visible:outline-dashed
+    focus-visible:outline-offset-0
+    focus-visible:outline-2
+    focus-visible:bg-lighter-gray
+    text-black
+    px-4;
+}
+.inputField[val='*'] {
+  @apply bg-lighter-gray;
+}
+
+.longText {
+  @apply h-40 py-3
+}
+
+.fieldGroup {
+  @apply flex flex-col relative gap-2;
+}
+
+.fieldGroup > div {
+  display: none;
+}
+
+.errorMsg {
+  @apply
+    text-teal
+    text-xs
+    m-0
+    absolute
+    right-0
+    top-1
+    font-mono
+    opacity-70;
+}
+
+.submitButton {
+  @apply flex
+    p-4
+    bg-teal
+    bg-opacity-90
+    text-black
+    rounded-lg
+    transition-all
+    focus-visible:bg-slate
+    focus-visible:text-teal
+    focus-visible:outline-teal
+    focus-visible:outline-dashed
+    focus-visible:outline-offset-0
+    focus-visible:outline-2
+    hover:bg-slate
+    hover:text-teal
+    hover:outline-teal
+    hover:outline-dashed
+    hover:outline-offset-0
+    hover:outline-2;
+
+}
