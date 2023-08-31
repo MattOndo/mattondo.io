@@ -216,7 +216,7 @@ export default function ContactForm() {
               )}
               {showFailureMessage && (
                 <p className="text-teal text-sm font-mono">
-                  Oops! Something went wrong, please try again.
+                  Oops! Something went wrong, please try again. If this continues, please feel free to email me directly at <a href="mailto:yours.truly@mattondo.com">yours.truly@mattondo.com</a>.
                 </p>
               )}
             </div>
