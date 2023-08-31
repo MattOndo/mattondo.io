@@ -36,8 +36,7 @@ export default function Tracking() {
           ]}
           resolveUrl={function(url){
             const proxy_domains = [
-              'cdn.heapanalytics.com',
-              'cdn.segment.com'
+              'cdn.heapanalytics.com'
             ];
 
             if (proxy_domains.includes(url.hostname)) {
