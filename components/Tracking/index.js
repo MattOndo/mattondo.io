@@ -55,7 +55,7 @@ export default function Tracking() {
 
       <script
         type="text/partytown"
-        src={`https://api.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js?host=cdn.segment.com`}
+        src={`https://api.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js`}
       />
       <script
         type="text/partytown"
