@@ -11,7 +11,7 @@ import Head from 'next/head';
  *
  * @returns {React.ReactElement} The SEO component
  */
-export default function SEO({ title, description, imageUrl, url }) {
+export default function SEO({ title, description, imageUrl, url, robots }) {
   if (!title && !description && !imageUrl && !url) {
     return null;
   }
@@ -58,6 +58,12 @@ export default function SEO({ title, description, imageUrl, url }) {
           <>
             <meta property="og:url" content={url} />
             <meta property="twitter:url" content={url} />
+          </>
+        )}
+
+        {robots && (
+          <>
+            <meta name="robots" content={robots} />
           </>
         )}
       </Head>
