@@ -33,29 +33,21 @@ export default function Tracking() {
             "analytics.debug",
             "analytics.page",
           ]}
-          resolveUrl={function(url, location, type){
-            // Proxy Heap
-            if (url.href === 'https://cdn.heapanalytics.com/js/heap-1605455257.js') {
+          resolveUrl={function(url){
+            const proxy_domains = [
+              'cdn.heapanalytics.com',
+              'cdn.segment.com'
+            ];
+
+            if (proxy_domains.includes(url.hostname)) {
               if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
-                console.log('Proxy:','https://cdn.heap.mattondo.io'+url.pathname,'->',url.href)
+                console.log('Proxy:',url.href)
               }
-              var proxyUrl = new URL('https://cdn.heap.mattondo.io'+url.pathname);
-              return proxyUrl;
-            }
-            // Proxy Segment
-            if (url.hostname === 'cdn.segment.com') {
-              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
-                console.log('Proxy:','https://cdn.segment.mattondo.io'+url.pathname,'->',url.href)
-              }
-              var proxyUrl = new URL('https://cdn.segment.mattondo.io'+url.pathname);
+              var proxyUrl = new URL('https://cf.mattondo.io'+url.pathname+'?host='+url.hostname);
               return proxyUrl;
             }
 
-            if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
-              console.log('No proxy needed:',url.href)
-            }
             return url;
-            
           }}
           debug={process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG}
         />
@@ -63,7 +55,7 @@ export default function Tracking() {
 
       <script
         type="text/partytown"
-        src={`https://cdn.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js`}
+        src={`https://cf.mattondo.io/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js?host=cdn.segment.com`}
       />
       <script
         type="text/partytown"
