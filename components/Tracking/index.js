@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { Partytown } from '@builder.io/partytown/react';
 
+
 export default function Tracking() {
   const router = useRouter();
 
@@ -36,7 +37,7 @@ export default function Tracking() {
           resolveUrl={function(url){
             const proxy_domains = [
               'cdn.heapanalytics.com',
-              'api.segment.com'
+              'cdn.segment.com'
             ];
 
             if (proxy_domains.includes(url.hostname)) {
@@ -55,7 +56,7 @@ export default function Tracking() {
 
       <script
         type="text/partytown"
-        src={`https://api.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js`}
+        src={`https://cdn.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js`}
       />
       <script
         type="text/partytown"
