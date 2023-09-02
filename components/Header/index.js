@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import Link from "next/link";
 import {NavLink} from "../NavLink";
 import Icon from '../../assets/images/icon.svg';
-import NavIcon from '../../assets/images/hamburger.svg';
+import HamburgerIcon from '../HamburgerIcon';
 import style from "./style.module.css";
 
 export default function Header({ siteTitle, siteDescription, menuItems }) {
@@ -16,10 +16,7 @@ export default function Header({ siteTitle, siteDescription, menuItems }) {
         </Link>
 
         <nav id="nav" className={style.navMenu}>
-          <label htmlFor="navToggle">
-            <NavIcon aria-label="Menu" width="50" height="50" className="mr-7" />
-          </label>
-          <input type="checkbox" id="navToggle" className=""/>
+          <HamburgerIcon aria-label="Menu" width="40" height="40" className="mr-7" />
           <ul className="flex">
             {menuItems.map((item) => (
               <li key={item.id}>
