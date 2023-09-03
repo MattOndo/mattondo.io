@@ -48,7 +48,7 @@ export default function Posts({ posts }) {
                   height={image.mediaDetails.height}
                   imgClassName="w-full h-auto rounded-lg"
                 />
-                <div className='p-6'>
+                <div className='md:p-6'>
                   <h3 className='block w-full'>{post.title}</h3>
                   <div className="excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
                   <p className="continue text-sm mt-5 font-mono p-2 -ml-2">Continue Reading &gt;</p>
