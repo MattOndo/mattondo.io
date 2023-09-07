@@ -6,6 +6,7 @@ import Tracking from '../components/Tracking';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
 import "../styles/globals.css";
+import '@faustwp/core/dist/css/toolbar.css';
 
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
