@@ -1,3 +1,9 @@
+@media screen and (max-width: 782px) {
+  body.admin-bar #wpadminbar + #site-header{
+    top: 32px;
+  }
+}
+
 #nav ul {
   @apply flex flex-col fixed left-0 top-[68px] w-full bg-black text-center justify-center opacity-0;
   z-index: -9999;
