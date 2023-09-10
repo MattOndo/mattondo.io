@@ -9,7 +9,7 @@ import {
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import blocks from '../wp-blocks';
 import { flatListToHierarchical, pageTitle } from '../utils'
-import blockFragments from '../fragments/BlockFragments';
+import getFragmentDataFromBlocks from "../utils/getFragmentDataFromBlocks";
 export default function Component(props) {
 
   // Loading state for previews
@@ -70,7 +70,7 @@ Component.variables = ({ databaseId }, ctx) => {
 
 Component.query = gql`
   ${Header.fragments.entry}
-  ${blockFragments().fragments}
+  ${getFragmentDataFromBlocks(blocks).entries}
   query GetPost($databaseId: ID!, $asPreview: Boolean = false) {
     post(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -91,7 +91,7 @@ Component.query = gql`
         key: clientId
         parentId: parentClientId
         renderedHtml
-        ${blockFragments().includes}
+        ${getFragmentDataFromBlocks(blocks).keys}
       }
       author {
         node {

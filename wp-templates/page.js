@@ -8,7 +8,8 @@ import {
 } from "../components";
 import { WordPressBlocksViewer } from '@faustwp/blocks';
 import { flatListToHierarchical, pageTitle } from '../utils'
-import blockFragments from '../fragments/BlockFragments';
+import blocks from '../wp-blocks';
+import getFragmentDataFromBlocks from "../utils/getFragmentDataFromBlocks";
 
 export default function Component(props) {
   // Loading state for previews
@@ -54,14 +55,14 @@ export default function Component(props) {
 Component.variables = ({ databaseId }, ctx) => {
   return {
     databaseId,
-    asPreview: ctx?.asPreview,
+    asPreview: ctx?.asPreview
   };
 };
 
 Component.query = gql`
   ${Header.fragments.entry}
   ${Hero.fragments.entry}
-  ${blockFragments().fragments}
+  ${getFragmentDataFromBlocks(blocks).entries}
   query GetPage($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
       title
@@ -72,7 +73,7 @@ Component.query = gql`
         key: clientId
         parentId: parentClientId
         renderedHtml
-        ${blockFragments().includes}
+        ${getFragmentDataFromBlocks(blocks).keys}
       }
       author {
         node {
