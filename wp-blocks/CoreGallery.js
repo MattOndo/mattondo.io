@@ -1,9 +1,6 @@
 import { gql } from '@apollo/client';
-import React, { useCallback, useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+import React from 'react';
 import className from 'classnames/bind';
-import ReactDOM from 'react-dom';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -28,7 +25,7 @@ export default function CoreGallery(props) {
       useKeyboardArrows={true}
       >
         {images.map(({ key, attributes }) => (
-          <figure>
+          <figure key={key}>
             <img 
               id={key}
               src={attributes.src} 
