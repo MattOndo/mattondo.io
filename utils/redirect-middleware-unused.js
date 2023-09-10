@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pathToRegexp from 'path-to-regexp';
+import {pathToRegexp} from 'path-to-regexp';
 import fetch from 'node-fetch';
 
 export async function middleware(req) {
@@ -28,24 +28,25 @@ export async function middleware(req) {
 
     const responseData = await res.json();
     const redirects = responseData.data.redirection.redirects;
-    // console.log(redirects);
     let targetUrl;
 
     // Find the matching redirect
     const matchingRedirect = redirects.find((redirect) => {
+      const sourcePattern = pathToRegexp(redirect.source);
+      const match = sourcePattern.exec(req.nextUrl.pathname);
       if (redirect.regex) {
-        const pattern = new RegExp(redirect.source); // Convert the source into a RegExp
+        const pattern = new RegExp(redirect.source);
         if (pattern.test(req.nextUrl.pathname)) {
+          console.log("query", req.nextUrl.search);
           targetUrl = req.nextUrl.pathname.replace(pattern, redirect.destination) + req.nextUrl.search;
+          console.log('redirecting to',targetUrl);
           return targetUrl;
         }
-      } else if (redirect.source === req.nextUrl.pathname) {
-        // const pattern = pathToRegexp(redirect.source);
-        // const match = pattern.exec(req.nextUrl.pathname);
-        // if (match) {
-          targetUrl = redirect.destination + req.nextUrl.search;
-          return targetUrl;
-        // }
+      } 
+      else if (match) {
+        targetUrl = redirect.destination + req.nextUrl.search;
+        console.log('redirecting to',targetUrl);
+        return targetUrl;
       }
       return null;
     });
