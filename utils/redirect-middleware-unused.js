@@ -37,15 +37,15 @@ export async function middleware(req) {
       if (redirect.regex) {
         const pattern = new RegExp(redirect.source);
         if (pattern.test(req.nextUrl.pathname)) {
-          console.log("query", req.nextUrl.search);
+          // console.log("query", req.nextUrl.search);
           targetUrl = req.nextUrl.pathname.replace(pattern, redirect.destination) + req.nextUrl.search;
-          console.log('redirecting to',targetUrl);
+          // console.log('redirecting to',targetUrl);
           return targetUrl;
         }
       } 
       else if (match) {
         targetUrl = redirect.destination + req.nextUrl.search;
-        console.log('redirecting to',targetUrl);
+        // console.log('redirecting to',targetUrl);
         return targetUrl;
       }
       return null;
