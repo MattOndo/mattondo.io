@@ -41,9 +41,9 @@ export default function Page(props) {
         image={heroContent.image}
       />
 
-      <main className="container-fluid">
+      <div className="container-fluid">
         <ContactForm />
-      </main>
+      </div>
 
       <Footer />
     </>
