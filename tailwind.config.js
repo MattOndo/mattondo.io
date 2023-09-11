@@ -85,6 +85,12 @@ module.exports = {
     'md:w-full',
     {
       pattern: /grid-cols-/
+    },
+    {
+      pattern: /align-/
+    },
+    {
+      pattern: /self-/
     }
   ],
   plugins: [
