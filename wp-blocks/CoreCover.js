@@ -9,7 +9,6 @@ const cx = className.bind();
 
 export default function CoreCover(props) {
   const attributes = props.attributes;
-  console.log(attributes);
   const cssValign = attributes.verticalAlignment ? 'self-'+attributes.verticalAlignment : null;
   const [imageDimensions, setImageDimensions] = useState(null);
   useEffect(() => {
