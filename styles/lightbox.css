@@ -2,3 +2,7 @@
   border: dashed 2px #fff;
   @apply border-teal;
 }
+
+.yarl__container {
+  @apply rounded-lg;
+}
