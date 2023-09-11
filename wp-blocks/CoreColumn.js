@@ -9,10 +9,11 @@ const cx = className.bind();
 export default function CoreColumn(props) {
   const attributes = props.attributes;
 
+  const cssValign = attributes.verticalAlignment ? 'self-'+attributes.verticalAlignment : null;
   const widthClass = attributes.width ? 'md:w-'+closestFraction(attributes.width) : 'w-full'
   
   return (
-    <div className={cx([attributes.className, 'w-full', widthClass])}>
+    <div className={cx([attributes.className, widthClass, cssValign])}>
       <WordPressBlocksViewer blocks={props.children}/>
     </div>
     );
