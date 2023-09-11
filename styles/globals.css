@@ -13,7 +13,7 @@ html {
 @import './archive.css';
 @import './navigation.css';
 
-@import './react-carousel.css';
+@import './lightbox.css';
 @import './cover.css';
 
 body {

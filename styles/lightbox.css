@@ -1,0 +1,4 @@
+.yarl__thumbnails_thumbnail_active {
+  border: dashed 2px #fff;
+  @apply border-teal;
+}
