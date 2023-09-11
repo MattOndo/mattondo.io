@@ -6,6 +6,7 @@ html {
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+@import './colors.css';
 @import './fonts.css';
 @import './type-scale.css';
 @import './typography.css';
@@ -14,6 +15,8 @@ html {
 @import './navigation.css';
 
 @import './react-carousel.css';
+@import './cover.css';
+/* @import './thumbnails.css'; */
 
 body {
   @apply bg-blue;

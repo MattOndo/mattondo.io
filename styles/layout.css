@@ -4,3 +4,6 @@
   @apply px-4;
 }
 
+.max-h-50dvh {
+  max-height: 50dvh;
+}
