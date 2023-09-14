@@ -18,7 +18,7 @@ export default function Tracking() {
   return (
     <>
       <label 
-        id="navToggle"
+        id="navToggleLabel"
         className={cx(['navToggle', `isOpen-${isOpen}`])} 
         htmlFor="navToggle" 
         aria-label="Menu"
