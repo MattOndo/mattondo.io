@@ -63,4 +63,8 @@ module.exports = withFaust({
     const wordPressRedirects = await fetchWordPressRedirects();
     return wordPressRedirects;
   },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
 });
