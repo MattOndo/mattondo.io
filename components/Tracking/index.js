@@ -6,7 +6,6 @@ import { Partytown } from '@builder.io/partytown/react';
 
 export default function Tracking() {
   const router = useRouter();
-  const PT_DEBUG = (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG === 'true')
 
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -41,16 +40,12 @@ export default function Tracking() {
             ];
 
             if (proxy_domains.includes(url.hostname)) {
-              if (PT_DEBUG) {
-                console.log('Proxy:',url.href)
-              }
               var proxyUrl = new URL('https://cf.mattondo.io'+url.pathname+'?host='+url.hostname);
               return proxyUrl;
             }
 
             return url;
           }}
-          debug={PT_DEBUG}
         />
       </Head>
 
