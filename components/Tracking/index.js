@@ -40,7 +40,7 @@ export default function Tracking() {
             ];
 
             if (proxy_domains.includes(url.hostname)) {
-              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG) {
+              if (process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG === true || process.env.NEXT_PUBLIC_PARTYTOWN_DEBUG === 'true') {
                 console.log('Proxy:',url.href)
               }
               var proxyUrl = new URL('https://cf.mattondo.io'+url.pathname+'?host='+url.hostname);
