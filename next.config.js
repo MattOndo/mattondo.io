@@ -24,8 +24,6 @@ async function fetchWordPressRedirects() {
   });
   const { data } = await resp.json();
 
-  console.log("raw",data.redirection.redirects);
-
   if(!Array.isArray(data.redirection.redirects)) {
       return [];
   }
@@ -37,8 +35,6 @@ async function fetchWordPressRedirects() {
         destination: redirection.target,
         permanent: redirection.code === 301 ? true : false
     }));
-
-  console.log("redirects",redirects);
 
   return redirects;
 }
