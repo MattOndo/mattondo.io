@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-import Head from "next/head";
 import {
   Header,
   Hero,
