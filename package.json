@@ -17,6 +17,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@wordpress/style-engine": "^1.23.0",
     "graphql": "^16.6.0",
+    "highlight.js": "^11.8.0",
     "next": "^13.1.6",
     "path-to-regexp": "^6.2.1",
     "react": "^18.2.0",

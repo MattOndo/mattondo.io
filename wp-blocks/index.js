@@ -7,6 +7,7 @@ import CoreList from "./CoreList";
 import CoreGallery from "./CoreGallery";
 import CoreEmbed from "./CoreEmbed";
 import CoreCover from "./CoreCover";
+import AcfCode from "./AcfCode";
 
 export default {
   CoreParagraph,
@@ -17,5 +18,6 @@ export default {
   CoreList,
   CoreGallery,
   CoreEmbed,
-  CoreCover
+  CoreCover,
+  AcfCode
 };
