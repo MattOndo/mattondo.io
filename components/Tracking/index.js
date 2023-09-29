@@ -3,12 +3,11 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { Partytown } from '@builder.io/partytown/react';
 
-
 export default function Tracking() {
   const router = useRouter();
 
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = () => {
       /* invoke segment page view event */
       analytics.page();
     };
@@ -33,6 +32,9 @@ export default function Tracking() {
             "analytics.track",
             "analytics.debug",
             "analytics.page",
+            "LogRocket.getSessionURL",
+            "LogRocket.init",
+            "LogRocket.track",
           ]}
           resolveUrl={function(url){
             const proxy_domains = [
@@ -53,6 +55,7 @@ export default function Tracking() {
         type="text/partytown"
         src={`https://cdn.segment.com/analytics.js/v1/${process.env.NEXT_PUBLIC_SEGMENT_KEY}/analytics.min.js`}
       />
+
       <script
         type="text/partytown"
         dangerouslySetInnerHTML={{
