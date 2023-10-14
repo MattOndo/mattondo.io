@@ -14,15 +14,15 @@ export default function Hero({ headline, subheadline, layout, image, ...props })
     <section className="pageHero">
       {layout === "Text Only" &&
         <div className="container-fluid text-center py-20">
-          <h1>{headline}</h1>
-          <p className="font-mono text-teal text-xs">{subheadline}</p>
+          <h1 className="mt-0">{headline}</h1>
+          <p className="font-mono text-teal text-xs mb-0">{subheadline}</p>
         </div>
       }
       {layout === "Image Right" && 
         <div className="container-fluid md:flex items-center gap-8 py-20">
           <div className="w-full">
-            <h1>{headline}</h1>
-            <p>{subheadline}</p>
+            <h1 className="mt-0">{headline}</h1>
+            <p className="mb-0">{subheadline}</p>
           </div>
           <div className="w-full">
             <Image 
