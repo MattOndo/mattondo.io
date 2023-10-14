@@ -100,28 +100,28 @@ module.exports = {
           fontSize: theme('fontSize.2xl'),
           fontFamily: theme('fontFamily.body'),
           fontWeight: 700,
-          margin: '1rem 0',
+          margin: '2rem 0 1rem 0',
           lineHeight: 1.1
         },
         'h2': { 
           fontSize: theme('fontSize.xl'),
           fontFamily: theme('fontFamily.body'),
           fontWeight: 700,
-          margin: '1rem 0',
+          margin: '2rem 0 1rem 0',
           lineHeight: 1.1
         },
         'h3': { 
           fontSize: theme('fontSize.lg'),
           fontFamily: theme('fontFamily.body'),
           fontWeight: 700,
-          margin: '1rem 0',
+          margin: '2rem 0 1rem 0',
           lineHeight: 1.1
         },
         'h4': { 
           fontSize: theme('fontSize.base'),
           fontFamily: theme('fontFamily.body'),
           fontWeight: 700,
-          margin: '1rem 0',
+          margin: '2rem 0 1rem 0',
           lineHeight: 1.1
         },
         'h5': { 
@@ -136,7 +136,7 @@ module.exports = {
           fontSize: theme('fontSize.base'),
           fontFamily: theme('fontFamily.body'),
           margin: '1rem auto',
-          lineHeight: 1.3
+          lineHeight: 1.5
         },
         'a': { 
           fontFamily: theme('fontFamily.mono'),
@@ -154,6 +154,9 @@ module.exports = {
         },
         'li': {
           paddingLeft: '.5rem'
+        },
+        'figure': {
+          margin: '1rem 0'
         }
       })
     }),
