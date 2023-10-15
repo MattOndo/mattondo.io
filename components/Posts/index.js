@@ -40,6 +40,7 @@ export default function Posts({ posts }) {
             >
               <Link
                 href={post.uri}
+                scroll={false}
                 className="card grid grid-cols-1 md:grid-cols-[33%_auto] gap-6 items-center justify-center my-20 bg-slate p-4 border-r-2 border-teal rounded-lg"
               >
                 <FeaturedImage

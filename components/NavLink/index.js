@@ -16,7 +16,7 @@ export const NavLink = ({ href, children, ...props }) => {
   }
 
   return (
-    <Link href={href} {...props}>
+    <Link href={href} {...props} scroll={false}>
       {children}
     </Link>
   );
