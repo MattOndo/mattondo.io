@@ -12,7 +12,6 @@ import { flatListToHierarchical } from '../utils'
 import blocks from '../wp-blocks';
 import getFragmentDataFromBlocks from "../utils/getFragmentDataFromBlocks";
 
-
 export default function Component(props) {
   // Page Details
   const { title: siteTitle, description: siteDescription } =

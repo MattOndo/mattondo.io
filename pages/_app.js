@@ -14,16 +14,17 @@ export default function MyApp({ Component, pageProps }) {
   
   return (
     <>
-      <Layout pageProps={pageProps}>
+
         <FaustProvider pageProps={pageProps} key={pageProps.__SEED_NODE__.id}>
           <WordPressBlocksProvider
             config={{
               blocks,
             }}>
-            <Component {...pageProps} key={router.asPath} />
+            <Layout pageProps={pageProps}>
+              <Component {...pageProps} key={router.asPath} />
+            </Layout>
           </WordPressBlocksProvider>
         </FaustProvider>
-        </Layout>
 
       <Tracking />
     </>

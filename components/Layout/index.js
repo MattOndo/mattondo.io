@@ -23,9 +23,9 @@ export default function Layout({ children, pageProps }) {
         menuItems={menuItems}
       />
 
-        <PageTransition key={pageProps.__SEED_NODE__.id}>
-          {children}
-        </PageTransition>
+      <PageTransition thekey={pageProps.__SEED_NODE__.uri}>
+        {children}
+      </PageTransition>
 
       <Footer />
     </>

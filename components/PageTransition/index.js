@@ -1,17 +1,18 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-function PageTransition({ children, ...rest }, ref) {
-	console.log('key', children.props.pageProps.__SEED_NODE__.id);
+function PageTransition({ children, ...rest },ref) {
 	return (
-		<AnimatePresence mode="wait">
+		<AnimatePresence mode="popLayout">
 			<motion.div
-				layout={false}
+				layout={true}
 				ref={ref}
-				initial={{ opacity: 0, scale: .99, transformOrigin: 'center 190px' }}
-				animate={{ opacity: 1, scale: 1, transformOrigin: 'center 190px' }}
+				key={rest.thekey}
+				initial={{ opacity: 0, y: 10 }}
+				animate={{ opacity: 1, y: 0 }}
+				exit={{ opacity: 0, y: -10 }}
 				transition={{
-					duration: 0.4,
+					duration: 0.3,
 					delay: 0,
 					ease: 'easeInOut'
 				}}
