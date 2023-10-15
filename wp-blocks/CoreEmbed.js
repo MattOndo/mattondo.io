@@ -16,7 +16,7 @@ export default function CoreEmbed(props) {
   }
 
   return (
-    <div className='embed-container'>
+    <div className='embed-container my-4'>
       <iframe {...embedDetails} className='w-full aspect-video rounded-lg'  frameBorder='0' allowFullScreen></iframe>
     </div>
     );
