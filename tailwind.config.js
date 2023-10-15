@@ -101,7 +101,8 @@ module.exports = {
           fontFamily: theme('fontFamily.body'),
           fontWeight: 700,
           margin: '2rem 0 1rem 0',
-          lineHeight: 1.1
+          lineHeight: 1.1,
+          textWrap: 'balance'
         },
         'h2': { 
           fontSize: theme('fontSize.xl'),
