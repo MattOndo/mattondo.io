@@ -7,6 +7,7 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import "yet-another-react-lightbox/plugins/captions.css";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 
 
 export default function CoreGallery(props) {
@@ -19,6 +20,7 @@ export default function CoreGallery(props) {
   const [index, setIndex] = React.useState(0);
   const toggleOpen = (state) => () => setOpen(state);
   const updateIndex = ({ index: current }) => setIndex(current);
+  const zoomRef = React.useRef(null);
 
 
   let slides = [];
@@ -57,6 +59,7 @@ export default function CoreGallery(props) {
         }}
         inline={{
           style: {
+            cursor: "pointer",
             width: "100%",
             aspectRatio: "5 / 4",
             margin: "0 auto",
@@ -91,6 +94,8 @@ export default function CoreGallery(props) {
         on={{
           view: updateIndex,
         }}
+        zoom={{ ref: zoomRef }}
+        plugins={[Zoom]}
         animation={{ fade: 0 }}
         controller={{ closeOnPullDown: true, closeOnBackdropClick: true }}
       />
