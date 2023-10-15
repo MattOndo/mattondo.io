@@ -1,17 +1,21 @@
+import { useQuery, gql } from "@apollo/client";
+import { BlogInfoFragment } from '../../fragments/GeneralSettings';
 import {
   Header,
   Footer,
 } from "../../components";
 import PageTransition from '../../components/PageTransition';
 import React from 'react'
+import { usePathname } from "next/navigation";
 
 export default function Layout({ children, pageProps }) {
+  const { data } = useQuery(Layout.query);
+  const pathname = usePathname();
   const {
     title: siteTitle,
-    description: siteDescription
-  } = pageProps.__TEMPLATE_QUERY_DATA__.generalSettings;
-
-  const menuItems = pageProps.__TEMPLATE_QUERY_DATA__.primaryMenuItems.nodes;
+    description: siteDescription,
+  } = data?.generalSettings ?? {};
+  const menuItems = data?.primaryMenuItems?.nodes ?? [];
 
   return (
     <>
@@ -23,7 +27,7 @@ export default function Layout({ children, pageProps }) {
         menuItems={menuItems}
       />
 
-      <PageTransition thekey={pageProps.__SEED_NODE__.uri}>
+      <PageTransition thekey={pathname}>
         {children}
       </PageTransition>
 
@@ -31,3 +35,15 @@ export default function Layout({ children, pageProps }) {
     </>
   );
 }
+
+Layout.query = gql`
+  ${Header.fragments.entry}
+  ${BlogInfoFragment}
+  query GetPage {
+    generalSettings {
+      ...BlogInfoFragment
+    }
+    ...HeaderFragment
+  }
+`;
+

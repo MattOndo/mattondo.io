@@ -15,7 +15,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <>
 
-        <FaustProvider pageProps={pageProps} key={pageProps.__SEED_NODE__.id}>
+        <FaustProvider pageProps={pageProps}>
           <WordPressBlocksProvider
             config={{
               blocks,
