@@ -6,6 +6,7 @@ import { NavLink } from "./NavLink";
 import FeaturedImage from "./FeaturedImage";
 import Posts from "./Posts";
 import SEO from "./Seo";
+import Tracking from "./Tracking";
 
 export {
   EntryHeader,
@@ -15,5 +16,6 @@ export {
   NavLink,
   FeaturedImage,
   Posts,
-  SEO
+  SEO,
+  Tracking
 }
