@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 function PageTransition({ children, ...rest }, ref) {
 	console.log('key', children.props.pageProps.__SEED_NODE__.id);
 	return (
-		// <AnimatePresence mode="wait">
+		<AnimatePresence mode="wait">
 			<motion.div
 				layout={false}
 				ref={ref}
@@ -19,7 +19,7 @@ function PageTransition({ children, ...rest }, ref) {
 			>
 				{children}
 			</motion.div>
-		// </AnimatePresence>
+		</AnimatePresence>
 	)
 }
 

@@ -1,11 +1,8 @@
 import { useQuery, gql } from "@apollo/client";
-import Link from "next/link";
-import Head from "next/head";
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
 import { 
   Header, 
   Hero,
-  Footer,
   FeaturedImage,
   Posts,
   SEO

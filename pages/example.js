@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import Head from "next/head";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import { getNextStaticProps } from "@faustwp/core";
 
 /**

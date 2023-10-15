@@ -6,7 +6,6 @@ import Tracking from '../components/Tracking';
 import { WordPressBlocksProvider } from '@faustwp/blocks';
 import Layout from "../components/Layout";
 import blocks from '../wp-blocks';
-import { AnimatePresence } from 'framer-motion'
 import "../styles/globals.css";
 import '@faustwp/core/dist/css/toolbar.css';
 
