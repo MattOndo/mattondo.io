@@ -39,12 +39,6 @@ export default function Component(props) {
         imageUrl={featuredImage?.node?.sourceUrl}
       />
 
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
-
       <Hero 
         headline={title}
         subheadline={formattedDate}
@@ -54,8 +48,6 @@ export default function Component(props) {
       <main className="container-fluid prose">
         <WordPressBlocksViewer blocks={blocks}/>
       </main>
-
-      <Footer />
     </>
   );
 }

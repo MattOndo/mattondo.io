@@ -35,12 +35,6 @@ export default function Component(props) {
         description={siteDescription}
       />
 
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
-
       <Hero 
         headline="Archive"
         subheadline="Welcome to my brain"
@@ -59,8 +53,6 @@ export default function Component(props) {
           /> */}
         </div>
       </main>
-
-      <Footer />
     </>
   );
 }

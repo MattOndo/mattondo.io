@@ -28,12 +28,6 @@ export default function Page(props) {
         robots="noindex,nofollow"
       />
 
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
-
       <Hero 
         headline={heroContent.headline || title}
         subheadline={heroContent.subheadline}
@@ -44,8 +38,6 @@ export default function Page(props) {
       <div className="container-fluid">
         <ContactForm />
       </div>
-
-      <Footer />
     </>
   );
 }

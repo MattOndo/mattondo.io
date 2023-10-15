@@ -20,17 +20,9 @@ export default function Page() {
         <title>{siteTitle}</title>
       </Head>
 
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
-
       <main className="container-fluid">
         <p>Next.js pages are still supported!</p>
       </main>
-
-      <Footer />
     </>
   );
 }

@@ -12,6 +12,7 @@ import { flatListToHierarchical } from '../utils'
 import blocks from '../wp-blocks';
 import getFragmentDataFromBlocks from "../utils/getFragmentDataFromBlocks";
 
+
 export default function Component(props) {
   // Page Details
   const { title: siteTitle, description: siteDescription } =
@@ -45,12 +46,6 @@ export default function Component(props) {
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
-
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
 
       <Hero 
         headline={heroContent.headline || title}
@@ -114,8 +109,6 @@ export default function Component(props) {
           </div>
         </section>
       </main>
-
-      <Footer />
     </>
   );
 }

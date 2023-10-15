@@ -29,12 +29,6 @@ export default function Component(props) {
     <>
       <SEO title={`Matt's ${heroContent.headline || title}`} />
 
-      <Header
-        siteTitle={siteTitle}
-        siteDescription={siteDescription}
-        menuItems={menuItems}
-      />
-
       <Hero 
         headline={heroContent.headline || title}
         subheadline={heroContent.subheadline}
@@ -45,8 +39,6 @@ export default function Component(props) {
       <main className="container-fluid">
         <WordPressBlocksViewer blocks={blocks}/>
       </main>
-
-      <Footer />
     </>
   );
 }
