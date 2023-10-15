@@ -1,10 +1,13 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-export const NavLink = ({ href, exact, children, ...props }) => {
+export const NavLink = ({ href, children, ...props }) => {
   const pathname = usePathname();
-  exact = pathname === '/' ? false : true; // Index always exact
-  const isActive = exact ? pathname === href : pathname.startsWith(href);
+  let isActive;
+
+  if (pathname === href || (href === '/archive/' && pathname.startsWith('/archive/'))) {
+    isActive = true;
+  }
 
   if (isActive) {
     props.className += '  text-teal';
