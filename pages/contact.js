@@ -29,10 +29,9 @@ export default function Page(props) {
       />
 
       <Hero 
-        headline={heroContent.headline || title}
-        subheadline={heroContent.subheadline}
-        layout={heroContent.layout}
-        image={heroContent.image}
+        headline="Contact Matt"
+        subheadline="Submit the form below to get in touch."
+        showImage={false}
       />
 
       <div className="container-fluid">
@@ -50,7 +49,6 @@ Page.variables = () => {
 
 Page.query = gql`
   ${Header.fragments.entry}
-  ${Hero.fragments.entry}
   ${BlogInfoFragment}
   query GetPage($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
@@ -73,7 +71,6 @@ Page.query = gql`
       ...BlogInfoFragment
     }
     ...HeaderFragment
-    ...HeroFragment
   }
 `;
 
