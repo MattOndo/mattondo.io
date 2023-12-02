@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import Image from 'next/image';
+import {Image} from '@nextui-org/react';
 import className from 'classnames/bind';
 const cx = className.bind();
 
@@ -32,8 +32,9 @@ export default function FeaturedImage({
   height = height ? height : image?.mediaDetails?.height;
 
   return src && width && height ? (
-    <figure className={cx([className])}>
+    <figure className={cx([className, 'my-0'])}>
       <Image
+        isZoomed
         src={src}
         width={width}
         height={height}

@@ -1,33 +1,50 @@
 import { gql } from "@apollo/client";
-import Link from "next/link";
-import {NavLink} from "../NavLink";
+import { React, useState } from "react";
+import { usePathname } from "next/navigation";
+import { Navbar, NavbarBrand, NavbarMenuItem, NavbarMenuToggle, NavbarMenu, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
 import Icon from '../../assets/images/icon.svg';
-import HamburgerIcon from '../HamburgerIcon';
-import style from "./style.module.css";
 
-export default function Header({ siteTitle, siteDescription, menuItems }) {
+export default function Header({ siteTitle, menuItems }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header id="site-header" className="w-full bg-black sticky top-0 z-50">
-      <div className="flex justify-between items-center pl-7">
-        <Link href="/" className="flex gap-2 items-center no-hover-style">
-          <Icon aria-label="Website Logo" />
-          <h2 className="font-body font-bold text-teal">{siteTitle}</h2>
-        </Link>
+    <Navbar id="site-nav" onMenuOpenChange={setIsMenuOpen} className="bg-black p-0" shouldHideOnScroll>
+      <NavbarContent className="ml-0">
+        <NavbarBrand as={Link} href="/" className="flex-grow-0 p-2 gap-4 hover:border-0 hover:bg-none">
+          <Icon aria-label="Website Logo" className='absolute -top-1' />
+          <p className="font-bold text-inherit text-teal text-xl m-0 ml-20">{siteTitle}</p>
+        </NavbarBrand>
+      </NavbarContent>
 
-        <nav id="nav" className={style.navMenu}>
-          <HamburgerIcon aria-label="Menu" width="40" height="40" className="mr-7" />
-          <ul className="flex">
-            {menuItems.map((item) => (
-              <li key={item.id}>
-                <NavLink href={item.uri} className="navLink block p-7 hover:bg-teal hover:bg-opacity-10">{item.label}</NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </header>
-  );
+      <NavbarContent className="hidden sm:flex gap-4 " justify="center">
+        {menuItems.map((item) => (
+          <NavbarItem>
+            <Link 
+              className={`p-5 hover:bg-teal hover:bg-opacity-10 ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} 
+              href={item.uri}>
+              {item.label}
+            </Link>
+          </NavbarItem>
+        ))}
+      </NavbarContent>
+
+      <NavbarMenu className="hidden sm:flex gap-4 m-0 bg-black bg-opacity-50 list-none" justify="center">
+        {menuItems.map((item) => (
+          <NavbarMenuItem>
+            <Link className={`p-5 hover:bg-teal hover:bg-opacity-10  ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} href={item.uri}>
+              {item.label}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+      <NavbarMenuToggle
+        id="menu-toggle"
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="sm:hidden"
+      />
+    </Navbar>
+  )
 }
 
 Header.fragments = {

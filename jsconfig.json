@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@utils": ["./utils"],
+      "@utils/*": ["./utils/*"],
+      "@components": ["./components"],
+      "@components/*": ["./components/*"],
+      "@assets/*": ["./assets/*"],
+      "@styles/*": ["./styles/*"],
+      "@style-modules/*": ["./styles/modules/*"],
+      "@wp-blocks": ["./wp-blocks"],
+      "@wp-blocks/*": ["./wp-blocks/*"],
+      "@wp-templates": ["./wp-templates"],
+      "@wp-templates/*": ["./wp-templates/*"],
+      "@fragments": ["./fragments"],
+      "@fragments/*": ["./fragments/*"]
+    }
+  }
+}

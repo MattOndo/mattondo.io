@@ -1,5 +1,6 @@
 import "../faust.config";
-import { React } from "react";
+import * as React from "react";
+import {NextUIProvider} from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { FaustProvider } from "@faustwp/core";
 import Tracking from '../components/Tracking';
@@ -14,7 +15,7 @@ export default function MyApp({ Component, pageProps }) {
   
   return (
     <>
-
+      <NextUIProvider>
         <FaustProvider pageProps={pageProps}>
           <WordPressBlocksProvider
             config={{
@@ -25,6 +26,7 @@ export default function MyApp({ Component, pageProps }) {
             </Layout>
           </WordPressBlocksProvider>
         </FaustProvider>
+      </NextUIProvider>
 
       <Tracking />
     </>

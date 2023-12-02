@@ -35,7 +35,7 @@ export default function Component(props) {
       <Hero 
         headline="Archive"
         subheadline="Welcome to my brain"
-        layout="Text Only"
+        showImage={false}
       />
 
       <main>
