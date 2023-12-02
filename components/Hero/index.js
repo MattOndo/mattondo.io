@@ -1,70 +1,43 @@
 import { gql } from "@apollo/client";
 import Image from 'next/image'
 
-export default function Hero({ headline, subheadline, layout, image, ...props }) {
+export default function Hero({ headline, subheadline, showImage, imagePlacement, image, anchor, ...props }) {
 
-  let src;
-  if (image?.sourceUrl instanceof Function) {
-    src = image?.sourceUrl();
+  // Style options
+  const imageClasses = ['w-full', 'rounded-lg'];
+  const contentWrapperClasses = ['w-full'];
+  const imageWrapperClasses = ['w-full'];
+
+  if (imagePlacement === 'left') {
+    contentWrapperClasses.push('md:order-last');
+    imageClasses.push('md:order-first');
   } else {
-    src = image?.sourceUrl;
+    contentWrapperClasses.push('md:order-first');
+    imageClasses.push('md:order-last');
+  }
+
+  if (!showImage) {
+    contentWrapperClasses.push('text-center');
   }
 
   return (
-    <section className="pageHero">
-      {layout === "Text Only" &&
-        <div className="container-fluid text-center py-20">
-          <h1 className="mt-0">{headline}</h1>
-          <p className="font-mono text-teal text-xs mb-0">{subheadline}</p>
-        </div>
-      }
-      {layout === "Image Right" && 
-        <div className="container-fluid md:flex items-center gap-8 py-20">
-          <div className="w-full">
-            <h1 className="mt-0">{headline}</h1>
-            <p className="mb-0">{subheadline}</p>
-          </div>
-          <div className="w-full">
-            <Image 
-              src={src}
-              alt={image.altText}
-              sizes={image.sizes}
-              width={image.mediaDetails.width}
-              height={image.mediaDetails.height}
-              className="w-full rounded-lg"
-              priority={true}
-            />
-          </div>
-        </div>
+    <section {...anchor} className='container-fluid py-20 md:flex items-center'>
+      <header className={`${contentWrapperClasses.join(' ')}`}>
+        <h1 className='mt-0'>{headline}</h1>
+        {subheadline && (
+          <p className='font-mono text-teal text-xs mb-0'>{subheadline}</p>
+        )}
+      </header>
+      {(showImage) &&
+        <Image
+          src={image.sourceUrl}
+          width={image.mediaDetails.width}
+          height={image.mediaDetails.height}
+          alt={image.altText}
+          sizes={image.sizes}
+          className={imageClasses.join(' ')}
+        />
       }
     </section>
-  );
+    );
 }
-
-Hero.fragments = {
-  entry: gql`
-    fragment HeroFragment on RootQuery {
-      page(id: $databaseId, idType:DATABASE_ID, asPreview: $asPreview) {
-       id
-       title
-       content
-       pageHeader {
-         headline
-         subheadline
-         layout
-         image {
-           uri
-           altText
-           srcSet
-           sourceUrl
-           sizes
-           mediaDetails {
-            width
-            height
-           }
-         }
-       }
-     }
-   }
-  `,
-};

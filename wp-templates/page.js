@@ -23,18 +23,10 @@ export default function Component(props) {
   const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
   const menuItems = props.data.primaryMenuItems.nodes;
   const { title, content } = props.data.page;
-  const heroContent = props.data.page.pageHeader;
 
   return (
     <>
-      <SEO title={`Matt's ${heroContent.headline || title}`} />
-
-      <Hero 
-        headline={heroContent.headline || title}
-        subheadline={heroContent.subheadline}
-        layout={heroContent.layout}
-        image={heroContent.image}
-      />
+      <SEO title={`Matt's ${title}`} />
 
       <main className="container-fluid">
         <WordPressBlocksViewer blocks={blocks}/>
@@ -52,7 +44,6 @@ Component.variables = ({ databaseId }, ctx) => {
 
 Component.query = gql`
   ${Header.fragments.entry}
-  ${Hero.fragments.entry}
   ${getFragmentDataFromBlocks(blocks).entries}
   query GetPage($databaseId: ID!, $asPreview: Boolean = false) {
     page(id: $databaseId, idType: DATABASE_ID, asPreview: $asPreview) {
@@ -73,6 +64,5 @@ Component.query = gql`
       }
     }
     ...HeaderFragment
-    ...HeroFragment
   }
 `;

@@ -1,9 +1,11 @@
 import { gql } from "@apollo/client";
+import { React, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
-import {NavLink} from "../NavLink";
 import Icon from '../../assets/images/icon.svg';
-import HamburgerIcon from '../HamburgerIcon';
 import style from "./style.module.css";
+import className from 'classnames/bind';
+const cx = className.bind();
 
 export default function Header({ siteTitle, siteDescription, menuItems }) {
 
@@ -55,3 +57,60 @@ Header.fragments = {
     }
   `,
 };
+
+const NavLink = ({ href, children, ...props }) => {
+  const pathname = usePathname();
+  let isActive;
+
+  if (pathname === href || (href === '/archive/' && pathname.startsWith('/archive/'))) {
+    isActive = true;
+  }
+
+  if (isActive) {
+    props.className += '  text-teal';
+  } else {
+    props.className += ' text-lighter-gray';
+  }
+
+  return (
+    <Link href={href} {...props} scroll={false}>
+      {children}
+    </Link>
+  );
+};
+
+const HamburgerIcon = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleNavToggle = async (e) => {
+    e.preventDefault();
+    if (isOpen) {
+      setIsOpen(false);
+    } else {
+      setIsOpen(true);
+    }
+  }
+
+  return (
+    <>
+      <label 
+        id="navToggleLabel"
+        className={cx(['navToggle', `isOpen-${isOpen}`])} 
+        htmlFor="navToggle" 
+        aria-label="Menu"
+        width="50" 
+        height="50"
+        onClick={handleNavToggle}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+      <input
+        id="navToggle"
+        type="checkbox"
+        checked={isOpen}
+        readOnly={true}
+      />
+    </>
+  );
+}

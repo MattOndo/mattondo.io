@@ -32,7 +32,7 @@ export default function FeaturedImage({
   height = height ? height : image?.mediaDetails?.height;
 
   return src && width && height ? (
-    <figure className={cx([className])}>
+    <figure className={cx([className, 'my-0'])}>
       <Image
         src={src}
         width={width}

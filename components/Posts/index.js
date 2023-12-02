@@ -24,7 +24,7 @@ export default function Posts({ posts }) {
 
           if (!image && appConfig.archiveDisplayFeaturedImage) {
             image = {
-              sourceUrl: 'https://bpmattondoio.wpengine.com/wp-content/uploads/IMG_2880-scaled.jpeg',
+              sourceUrl: `${process.env.NEXT_PUBLIC_WORDPRESS_URL}/wp-content/uploads/IMG_2880-scaled.jpeg`,
               mediaDetails: {
                 width: 100,
                 height: 100,
@@ -41,15 +41,16 @@ export default function Posts({ posts }) {
               <Link
                 href={post.uri}
                 scroll={false}
-                className="card grid grid-cols-1 md:grid-cols-[33%_auto] gap-6 items-center justify-center my-20 bg-slate p-4 border-r-2 border-teal rounded-lg"
+                className="card grid grid-cols-1 md:grid-cols-[33%_2fr] gap-6 items-center justify-center my-20 bg-slate border-r-2 border-teal rounded-lg"
               >
                 <FeaturedImage
                   image={image}
                   width={image.mediaDetails.width}
                   height={image.mediaDetails.height}
-                  imgClassName="w-full h-auto rounded-lg"
+                  className="w-full"
+                  imgClassName="w-full h-auto rounded-l-lg object-cover object-center aspect-square"
                 />
-                <div className='md:p-6'>
+                <div className='w-full'>
                   <h3 className='block w-full'>{post.title}</h3>
                   <div className="excerpt" dangerouslySetInnerHTML={{ __html: post.excerpt }}></div>
                   <p className="continue text-sm mt-5 font-mono p-2 -ml-2">Continue Reading &gt;</p>

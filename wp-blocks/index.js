@@ -8,6 +8,9 @@ import CoreGallery from "./CoreGallery";
 import CoreEmbed from "./CoreEmbed";
 import CoreCover from "./CoreCover";
 import AcfCode from "./AcfCode";
+import AcfImage from "./AcfImage";
+import AcfHero from "./AcfHero";
+import AcfGallery from "./AcfGallery";
 
 export default {
   CoreParagraph,
@@ -19,5 +22,8 @@ export default {
   CoreGallery,
   CoreEmbed,
   CoreCover,
-  AcfCode
+  AcfCode,
+  AcfImage,
+  AcfHero,
+  AcfGallery,
 };

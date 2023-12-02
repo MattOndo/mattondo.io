@@ -1,11 +1,17 @@
 {
-  "name": "@faustwp/faust-scaffold",
+  "name": "@mattondo/mattondo.io",
+  "version": "1.0.0",
+  "description": "Matt Ondo's personal website and playground",
+  "main": "index.js",
+  "repository": "git@github.com:MattOndo/mattondo.io.git",
+  "author": "Matt Ondo <yours.truly@mattondo.com>",
+  "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "npm run partytown && faust dev",
-    "build": "npm run partytown && faust build",
-    "generate": "faust generatePossibleTypes",
-    "start": "faust start",
+    "dev": "yarn partytown && faust dev",
+    "build": "yarn partytown && faust build",
+    "generate": "yarn faust generatePossibleTypes",
+    "start": "yarn faust start",
     "partytown": "partytown copylib public/~partytown"
   },
   "dependencies": {
