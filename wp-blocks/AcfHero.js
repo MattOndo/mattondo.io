@@ -21,8 +21,8 @@ export default function AcfHero(props) {
       headline={acf_fields.headline}
       subheadline={acf_fields.subheadline}
       showImage={acf_fields.showImage}
-      imagePlacement={acf_fields.imagePlacement}
-      image={acf_fields.image.node}
+      imagePlacement={acf_fields?.imagePlacement}
+      image={acf_fields?.image?.node}
       anchor={anchor}
     />
     );

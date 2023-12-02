@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import Image from 'next/image';
+import {Image} from '@nextui-org/react';
 
 export default function AcfImage(props) {
   // Get media details
@@ -21,6 +21,7 @@ export default function AcfImage(props) {
       {(showCaption && caption !== false) &&
         <figure { ...anchor } className={`w-full p-6 border ${attributes.className}`}>
           <Image
+            isZoomed
             src={media.sourceUrl}
             width={media.mediaDetails.width}
             height={media.mediaDetails.height}
@@ -36,13 +37,14 @@ export default function AcfImage(props) {
       }
       {(!showCaption || !caption) &&
         <Image
+          isZoomed
           { ...anchor }
           src={media.sourceUrl}
           width={media.mediaDetails.width}
           height={media.mediaDetails.height}
           alt={media.altText}
-          sizes={media.sizes}
-          className={imageClasses.join(' ')}
+          // sizes={media.sizes}
+          // className={imageClasses.join(' ')}
         />
       }
     </>

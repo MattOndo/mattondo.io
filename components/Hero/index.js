@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import Image from 'next/image'
+import {Image} from '@nextui-org/react';
 
 export default function Hero({ headline, subheadline, showImage, imagePlacement, image, anchor, ...props }) {
 
@@ -15,13 +15,15 @@ export default function Hero({ headline, subheadline, showImage, imagePlacement,
     contentWrapperClasses.push('md:order-first');
     imageClasses.push('md:order-last');
   }
-
+  let columnClass ='';
   if (!showImage) {
     contentWrapperClasses.push('text-center');
+  } else {
+    columnClass = 'md:grid-cols-2';
   }
 
   return (
-    <section {...anchor} className='container-fluid py-20 md:flex items-center'>
+    <section {...anchor} className={`container-fluid py-20 grid gap-4 ${columnClass} items-center`}>
       <header className={`${contentWrapperClasses.join(' ')}`}>
         <h1 className='mt-0'>{headline}</h1>
         {subheadline && (
@@ -30,6 +32,7 @@ export default function Hero({ headline, subheadline, showImage, imagePlacement,
       </header>
       {(showImage) &&
         <Image
+          isZoomed
           src={image.sourceUrl}
           width={image.mediaDetails.width}
           height={image.mediaDetails.height}

@@ -1,12 +1,9 @@
 import CoreParagraph from "./CoreParagraph";
-import CoreImage from "./CoreImage";
 import CoreColumns from "./CoreColumns";
 import CoreColumn from "./CoreColumn";
 import CoreHeading from "./CoreHeading";
+import CoreEmbed from "./CoreEmbed"
 import CoreList from "./CoreList";
-import CoreGallery from "./CoreGallery";
-import CoreEmbed from "./CoreEmbed";
-import CoreCover from "./CoreCover";
 import AcfCode from "./AcfCode";
 import AcfImage from "./AcfImage";
 import AcfHero from "./AcfHero";
@@ -14,14 +11,11 @@ import AcfGallery from "./AcfGallery";
 
 export default {
   CoreParagraph,
-  CoreImage,
   CoreColumns,
   CoreColumn,
   CoreHeading,
-  CoreList,
-  CoreGallery,
   CoreEmbed,
-  CoreCover,
+  CoreList,
   AcfCode,
   AcfImage,
   AcfHero,

@@ -14,8 +14,8 @@ html {
 @import './navigation.css';
 
 @import './lightbox.css';
-@import './cover.css';
 
+html,
 body {
   @apply bg-blue;
   @apply text-lighter-gray;
@@ -29,4 +29,10 @@ body {
   --color-lighter-gray: #c7d6f6;
   --color-black: #0c1423;
   --color-white: #ffffff;
+  background-color: var(--color-blue);
+}
+
+#menu-toggle span:not(.sr-only):before,
+#menu-toggle span:not(.sr-only):after {
+  @apply bg-lighter-gray;
 }

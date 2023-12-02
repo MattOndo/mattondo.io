@@ -1,35 +1,50 @@
 import { gql } from "@apollo/client";
 import { React, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { Navbar, NavbarBrand, NavbarMenuItem, NavbarMenuToggle, NavbarMenu, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
 import Icon from '../../assets/images/icon.svg';
-import style from "./style.module.css";
-import className from 'classnames/bind';
-const cx = className.bind();
 
-export default function Header({ siteTitle, siteDescription, menuItems }) {
+export default function Header({ siteTitle, menuItems }) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header id="site-header" className="w-full bg-black sticky top-0 z-50">
-      <div className="flex justify-between items-center pl-7">
-        <Link href="/" className="flex gap-2 items-center no-hover-style">
-          <Icon aria-label="Website Logo" />
-          <h2 className="font-body font-bold text-teal">{siteTitle}</h2>
-        </Link>
+    <Navbar id="site-nav" onMenuOpenChange={setIsMenuOpen} className="bg-black p-0" shouldHideOnScroll>
+      <NavbarContent className="ml-0">
+        <NavbarBrand as={Link} href="/" className="flex-grow-0 p-2 gap-4 hover:border-0 hover:bg-none">
+          <Icon aria-label="Website Logo" className='absolute -top-1' />
+          <p className="font-bold text-inherit text-teal text-xl m-0 ml-20">{siteTitle}</p>
+        </NavbarBrand>
+      </NavbarContent>
 
-        <nav id="nav" className={style.navMenu}>
-          <HamburgerIcon aria-label="Menu" width="40" height="40" className="mr-7" />
-          <ul className="flex">
-            {menuItems.map((item) => (
-              <li key={item.id}>
-                <NavLink href={item.uri} className="navLink block p-7 hover:bg-teal hover:bg-opacity-10">{item.label}</NavLink>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-    </header>
-  );
+      <NavbarContent className="hidden sm:flex gap-4 " justify="center">
+        {menuItems.map((item) => (
+          <NavbarItem>
+            <Link 
+              className={`p-5 hover:bg-teal hover:bg-opacity-10 ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} 
+              href={item.uri}>
+              {item.label}
+            </Link>
+          </NavbarItem>
+        ))}
+      </NavbarContent>
+
+      <NavbarMenu className="hidden sm:flex gap-4 m-0 bg-black bg-opacity-50 list-none" justify="center">
+        {menuItems.map((item) => (
+          <NavbarMenuItem>
+            <Link className={`p-5 hover:bg-teal hover:bg-opacity-10  ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} href={item.uri}>
+              {item.label}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+      <NavbarMenuToggle
+        id="menu-toggle"
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="sm:hidden"
+      />
+    </Navbar>
+  )
 }
 
 Header.fragments = {
@@ -57,60 +72,3 @@ Header.fragments = {
     }
   `,
 };
-
-const NavLink = ({ href, children, ...props }) => {
-  const pathname = usePathname();
-  let isActive;
-
-  if (pathname === href || (href === '/archive/' && pathname.startsWith('/archive/'))) {
-    isActive = true;
-  }
-
-  if (isActive) {
-    props.className += '  text-teal';
-  } else {
-    props.className += ' text-lighter-gray';
-  }
-
-  return (
-    <Link href={href} {...props} scroll={false}>
-      {children}
-    </Link>
-  );
-};
-
-const HamburgerIcon = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleNavToggle = async (e) => {
-    e.preventDefault();
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      setIsOpen(true);
-    }
-  }
-
-  return (
-    <>
-      <label 
-        id="navToggleLabel"
-        className={cx(['navToggle', `isOpen-${isOpen}`])} 
-        htmlFor="navToggle" 
-        aria-label="Menu"
-        width="50" 
-        height="50"
-        onClick={handleNavToggle}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </label>
-      <input
-        id="navToggle"
-        type="checkbox"
-        checked={isOpen}
-        readOnly={true}
-      />
-    </>
-  );
-}

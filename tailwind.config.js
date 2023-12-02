@@ -2,6 +2,8 @@
 
 const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const {nextui} = require("@nextui-org/react");
+
 
 module.exports = {
   content: [
@@ -9,6 +11,7 @@ module.exports = {
     "./pages/**/*.{js,ts,jsx,tsx,mdx,css}",
     "./wp-templates/**/*.{js,ts,jsx,tsx,mdx,css}",
     "./wp-blocks/**/*.{js,ts,jsx,tsx,mdx,css}",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     screens: {
@@ -94,6 +97,7 @@ module.exports = {
     }
   ],
   plugins: [
+    nextui(),
     plugin(function({ addBase, theme }) {
       addBase({
         'h1': { 
