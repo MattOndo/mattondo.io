@@ -3,7 +3,6 @@ import Link from "next/link";
 import styles from './style.module.css';
 
 export default function Footer({menuItems}) {
-  console.log('menuItems', menuItems);
 
   const year = new Date().getFullYear();
 
