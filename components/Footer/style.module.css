@@ -1,3 +1,6 @@
 .link {
   @apply text-lighter-gray;
 }
+.link:hover {
+  @apply text-teal;
+}
