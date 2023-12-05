@@ -34,6 +34,8 @@ async function sendEmail(req, res) {
       },
     }
 
+    await sendgrid.send(alertEmailMsg);
+
     const followupEmailMsg = {
       to: 'yours.truly@mattondo.com',
       from: 'yours.truly@mattondo.com',
@@ -44,39 +46,8 @@ async function sendEmail(req, res) {
       },
     }
 
-    // Send alert to self
-    await sendgrid.send(alertEmailMsg);
+    await sendgrid.send(followupEmailMsg);
 
-    // Send followup to submitter
-    await sendgrid.send({
-      to: email,
-      from: "yours.truly@mattondo.com",
-      subject: `Thanks for reaching out!`,
-      html: `<!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <title>Matt Ondo</title>
-        <meta name="author" content="Matt Ondo">
-        <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
-      </head>
-      
-      <body>
-          <h3>Hey ${name || 'there'},</h3>
-          <p>
-            Thanks for reaching out! I'll get back to you as soon as I can.
-          </p>
-          <p>
-            In the meantime, feel free to check out my <a href="https://mattondo.com">website</a> or <a href="https://mattondo.com/blog">blog</a>.
-          </p>
-          <p>
-            Cheers,
-            <br>
-            Matt
-          </p>
-      </body>
-      </html>`,
-    });
   } catch (error) {
     return res.status(error.statusCode || 500).json({ error: error.message });
   }
