@@ -18,6 +18,7 @@ export default function Layout({ children, pageProps }) {
     description: siteDescription,
   } = data?.generalSettings ?? {};
   const menuItems = data?.primaryMenuItems?.nodes ?? [];
+  const footerMenuItems = data?.menuItems?.nodes ?? [];
 
 
 	const onExitComplete = () => {
@@ -52,18 +53,20 @@ export default function Layout({ children, pageProps }) {
         </motion.div>
       </AnimatePresence>
 
-      <Footer />
+      <Footer menuItems={footerMenuItems} />
     </>
   );
 }
 
 Layout.query = gql`
   ${Header.fragments.entry}
+  ${Footer.fragments.entry}
   ${BlogInfoFragment}
   query GetPage {
     generalSettings {
       ...BlogInfoFragment
     }
     ...HeaderFragment
+    ...FooterFragment
   }
 `;
