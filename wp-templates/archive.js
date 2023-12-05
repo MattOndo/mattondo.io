@@ -38,17 +38,15 @@ export default function Component(props) {
         showImage={false}
       />
 
-      <main>
-        <div className="container-fluid">
-          <Posts posts={postList} />
-          {/* <LoadMore
-            className="text-center"
-            hasNextPage={data.nodeByUri?.contentNodes?.pageInfo.hasNextPage}
-            endCursor={data.nodeByUri?.contentNodes?.pageInfo.endCursor}
-            isLoading={loading}
-            fetchMore={fetchMore}
-          /> */}
-        </div>
+      <main className="container-fluid">
+        <Posts posts={postList} />
+        {/* <LoadMore
+          className="text-center"
+          hasNextPage={data.nodeByUri?.contentNodes?.pageInfo.hasNextPage}
+          endCursor={data.nodeByUri?.contentNodes?.pageInfo.endCursor}
+          isLoading={loading}
+          fetchMore={fetchMore}
+        /> */}
       </main>
     </>
   );

@@ -27,7 +27,7 @@ export default function Component(props) {
   return (
     <>
       <SEO title={siteTitle} description={siteDescription} />
-      <main>
+      <main className="container-fluid">
         <WordPressBlocksViewer blocks={blocks}/>
       </main>
     </>
