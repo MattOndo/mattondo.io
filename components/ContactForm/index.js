@@ -79,7 +79,7 @@ export default function ContactForm() {
       // Identify
       const uuid = uuidv4();
       analytics.identify(uuid, {
-        "name": data.fullname,
+        "name": data.name,
         "email": data.email,
       });
 
@@ -99,12 +99,12 @@ export default function ContactForm() {
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
             <Input 
               type="text" 
-              label="Full Name"
-              {...register("fullname", { required: true })}
+              label="Name"
+              {...register("name", { required: true })}
               variant='flat'
               size="lg"
               classNames={inputClasses}
-              {...errors.fullname && ({errorMessage: 'Please enter your name'})}
+              {...errors.name && ({errorMessage: 'Please enter your name'})}
             />
           </div>
           
