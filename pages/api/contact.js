@@ -37,7 +37,7 @@ async function sendEmail(req, res) {
     await sendgrid.send(alertEmailMsg);
 
     const followupEmailMsg = {
-      to: 'yours.truly@mattondo.com',
+      to: email,
       from: 'yours.truly@mattondo.com',
       subject: `Thanks for reaching out!`,
       template_id: 'd-f86f0f80d69a4a43b8c17cd4fd935ff2',
