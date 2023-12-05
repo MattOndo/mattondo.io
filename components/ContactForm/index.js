@@ -7,7 +7,7 @@ import { IoIosSend } from "react-icons/io";
 import { Spinner } from "@nextui-org/react";
 import styles from './style.module.css';
 
-const sitekey = '6LeqxxYoAAAAAFmuLUip3REZegnoOo8RVMoKYO2M';
+const sitekey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 const inputClasses = {
   label: "text-black font-mono text-sm",
   input: [
@@ -29,17 +29,13 @@ export default function ContactForm() {
     register,
     handleSubmit,
     getValues,
-    formState: { errors, isSubmitted, isSubmitting },
+    formState: { errors, isSubmitting },
   } = useForm()
   const {
     executeGoogleReCaptcha,
-    hideGoogleReCaptcha,
-    showGoogleReCaptcha,
   } = useGoogleReCaptcha(
-    sitekey, // your site key
-    {
-      hide: true, // optional, true if you want to hide recaptcha-badge beforehand
-    },
+    sitekey,
+    { hide: true },
   );
 
 
@@ -47,6 +43,7 @@ export default function ContactForm() {
     if (errors.length > 0) {
       return;
     }
+
     const token = await executeGoogleReCaptcha('submit');
     const formData = getValues();
     const data = {
@@ -54,7 +51,6 @@ export default function ContactForm() {
       gtoken: token,
     }
 
-    // Send Alert
     const res = await fetch("/api/contact", {
       body: JSON.stringify(data),
       headers: {
@@ -63,27 +59,22 @@ export default function ContactForm() {
       method: "POST",
     });
 
-    // Handle Error
     const { error } = await res.json();
     if (error) {
       setSubmitSuccess(false);
       console.error('error', error)
 
-      // Track Event
       analytics.track("Contact Form Submit",{
         "Result": "Fail"
       });
       return;
     } else {
-      // Handle Success
-      // Identify
       const uuid = uuidv4();
       analytics.identify(uuid, {
         "name": data.name,
         "email": data.email,
       });
 
-      // Track Event
       analytics.track("Contact Form Submit",{
         "Result": "Success"
       });
@@ -95,7 +86,6 @@ export default function ContactForm() {
     <>
       {!submitSuccess && (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl m-auto bg-slate px-8 py-10 rounded-xl grid gap-4">
-          
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
             <Input 
               type="text" 
@@ -166,6 +156,7 @@ export default function ContactForm() {
             </div>
             )}
           </div>
+
           <p className="text-lighter-gray text-xs m-0 text-center">
             This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" className="text-lighter-gray font-sans underline">Privacy Policy</a> and <a href="https://policies.google.com/terms" className="text-lighter-gray font-sans underline">Terms of Service</a> apply.
           </p>
