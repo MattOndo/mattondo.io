@@ -27,7 +27,7 @@ export default function Hero({ headline, subheadline, showImage, imagePlacement,
       <header className={`${contentWrapperClasses.join(' ')}`}>
         <h1 className='mt-0'>{headline}</h1>
         {subheadline && (
-          <p className='font-mono text-teal text-xs mb-0'>{subheadline}</p>
+          <p className='font-mono text-teal text-sm mb-0'>{subheadline}</p>
         )}
       </header>
       {(showImage) &&
