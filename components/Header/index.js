@@ -29,10 +29,10 @@ export default function Header({ siteTitle, menuItems }) {
         ))}
       </NavbarContent>
 
-      <NavbarMenu className="hidden sm:flex gap-4 m-0 bg-black bg-opacity-50 list-none" justify="center">
+      <NavbarMenu className="hidden sm:flex gap-4 m-0 bg-black bg-opacity-50 list-none overflow-visible" justify="center">
         {menuItems.map((item,index) => (
-          <NavbarMenuItem key={`mNavItem-${index}`}>
-            <Link className={`p-5 hover:bg-teal hover:bg-opacity-10  ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} href={item.uri}>
+          <NavbarMenuItem key={`mNavItem-${index}`} className=" p-0">
+            <Link className={`p-5 hover:bg-teal hover:bg-opacity-10 block ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} href={item.uri}>
               {item.label}
             </Link>
           </NavbarMenuItem>
