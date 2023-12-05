@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { useForm } from "react-hook-form"
 import { Input, Textarea, Button } from "@nextui-org/react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
-import { v4 as uuidv4 } from 'uuid';
 import { IoIosSend } from "react-icons/io";
 import { Spinner } from "@nextui-org/react";
 import styles from './style.module.css';
@@ -69,8 +68,7 @@ export default function ContactForm() {
       });
       return;
     } else {
-      const uuid = uuidv4();
-      analytics.identify(uuid, {
+      analytics.identify(data.email, {
         "name": data.name,
         "email": data.email,
       });
@@ -161,7 +159,6 @@ export default function ContactForm() {
             This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" className="text-lighter-gray font-sans underline">Privacy Policy</a> and <a href="https://policies.google.com/terms" className="text-lighter-gray font-sans underline">Terms of Service</a> apply.
           </p>
         </form>
-        // </GoogleReCaptchaProvider>
       )}
       {submitSuccess && (
         <div className="w-full max-w-xl m-auto bg-slate p-8 rounded-xl grid gap-4">
