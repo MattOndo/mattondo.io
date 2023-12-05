@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import ContactForm from "../components/ContactForm";
 import { getNextStaticProps } from "@faustwp/core";
 import { BlogInfoFragment } from '../fragments/GeneralSettings';
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+
 import {
   Header,
   Hero,
@@ -35,7 +37,9 @@ export default function Page(props) {
       />
 
       <div className="container-fluid">
-        <ContactForm />
+        <GoogleReCaptchaProvider reCaptchaKey="6LeqxxYoAAAAAFmuLUip3REZegnoOo8RVMoKYO2M">
+          <ContactForm />
+        </GoogleReCaptchaProvider>
       </div>
     </>
   );

@@ -1,294 +1,184 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
+import { useForm } from "react-hook-form"
+import { Input, Textarea, Button } from "@nextui-org/react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
+import { v4 as uuidv4 } from 'uuid';
+import { IoIosSend } from "react-icons/io";
+import { Spinner } from "@nextui-org/react";
 import styles from './style.module.css';
-import className from 'classnames/bind';
-import Head from 'next/head'
-import Script from 'next/script'
-import { generateUUID } from '../../utils';
-const cx = className.bind();
+
+const sitekey = '6LeqxxYoAAAAAFmuLUip3REZegnoOo8RVMoKYO2M';
+const inputClasses = {
+  label: "text-black font-mono text-sm",
+  input: [
+    "bg-transparent",
+    "text-lighter-grey",
+    "placeholder:text-lighter-gray/60",
+  ],
+  innerWrapper: "bg-transparent",
+  inputWrapper: [
+    "bg-lighter-gray",
+    "hover:bg-light-gray/50",
+    "group-data-[focused=true]:bg-light-gray",
+  ],
+};
 
 export default function ContactForm() {
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [subject, setSubject] = useState("");
-  const [message, setMessage] = useState("");
-  const [recaptchaToken, setRecaptchaToken] = useState('');
-  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false); // Track reCAPTCHA readiness
+  const [submitSuccess, setSubmitSuccess] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isSubmitted, isSubmitting },
+  } = useForm()
+  const {
+    executeGoogleReCaptcha,
+    hideGoogleReCaptcha,
+    showGoogleReCaptcha,
+  } = useGoogleReCaptcha(
+    sitekey, // your site key
+    {
+      hide: true, // optional, true if you want to hide recaptcha-badge beforehand
+    },
+  );
 
 
-  //   Form validation
-  const [errors, setErrors] = useState({});
+  const onSubmit = async () => {
+    if (errors.length > 0) {
+      return;
+    }
+    const token = await executeGoogleReCaptcha('submit');
+    const formData = getValues();
+    const data = {
+      ...formData,
+      gtoken: token,
+    }
 
-  //   Setting button text
-  const [buttonText, setButtonText] = useState("Send");
-
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showFailureMessage, setShowFailureMessage] = useState(false);
-
-  useEffect(() => {
-    // Load reCAPTCHA script directly from Google
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
-    script.async = true;
-    script.defer = true;
-    script.addEventListener('load', () => {
-      // Initialize reCAPTCHA with your site key
-      window.grecaptcha.ready(() => {
-        // Set reCAPTCHA readiness state
-        setIsRecaptchaReady(true);
-        console.log('reCAPTCHA is ready');
-      });
+    // Send Alert
+    const res = await fetch("/api/contact", {
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
     });
 
-    document.head.appendChild(script);
-  }, []);
+    // Handle Error
+    const { error } = await res.json();
+    if (error) {
+      setSubmitSuccess(false);
+      console.error('error', error)
 
-
-  const handleValidation = () => {
-    let tempErrors = {};
-    let isValid = true;
-
-    if (fullname.length <= 0) {
-      tempErrors["fullname"] = true;
-      isValid = false;
-    }
-    if (email.length <= 0) {
-      tempErrors["email"] = true;
-      isValid = false;
-    }
-    if (subject.length <= 0) {
-      tempErrors["subject"] = true;
-      isValid = false;
-    }
-    if (message.length <= 0) {
-      tempErrors["message"] = true;
-      isValid = false;
-    }
-
-    setErrors({ ...tempErrors });
-    console.log("errors", errors);
-    return isValid;
-  };
-
-  //   const [form, setForm] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Check if reCAPTCHA is available and ready
-    if (isRecaptchaReady && typeof window.grecaptcha !== 'undefined') {
-      // Get reCAPTCHA token
-      const recaptchaResponse = await window.grecaptcha.execute(
-        process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-        { action: 'submit_form' }
-      );
-
-
-      // Set the token in the state
-      setRecaptchaToken(recaptchaResponse);
-
-      let isValidForm = handleValidation();
-
-      if (isValidForm) {
-        setButtonText("Sending");
-
-        // Send Alert
-        const res = await fetch("/api/sendgrid-alert", {
-          body: JSON.stringify({
-            email: email,
-            fullname: fullname,
-            subject: subject,
-            message: message,
-            recaptchaToken: recaptchaToken
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "POST",
-        });
-
-        // Handle Errors
-        const { error } = await res.json();
-        if (error) {
-          console.log(error);
-          setShowSuccessMessage(false);
-          setShowFailureMessage(true);
-          setButtonText("Send");
-
-          // Reset form fields
-          setFullname("");
-          setEmail("");
-          setMessage("");
-          setSubject("");
-
-          // Track Event
-          analytics.trackForm("Contact",{
-            "Result": "Fail",
-            "To": "yours.truly@mattondo.com",
-            "From": email
-          });
-          return;
-        }
-
-        // Handle Success
-
-
-        // Identify
-        const uuid = generateUUID(email);
-        analytics.identify(uuid, {
-          "name": fullname,
-          "email": email,
-        });
-
-        // Track Event
-        analytics.trackForm("Contact",{
-          "Result": "Success",
-          "To": "yours.truly@mattondo.com",
-          "From": email
-        });
-        setShowSuccessMessage(true);
-        setShowFailureMessage(false);
-        setButtonText("Send");
-        // Reset form fields
-        setFullname("");
-        setEmail("");
-        setMessage("");
-        setSubject("");
-      }
+      // Track Event
+      analytics.track("Contact Form Submit",{
+        "Result": "Fail"
+      });
+      return;
     } else {
-      console.error('reCAPTCHA is not available or not ready.');
+      // Handle Success
+      // Identify
+      const uuid = uuidv4();
+      analytics.identify(uuid, {
+        "name": data.fullname,
+        "email": data.email,
+      });
+
+      // Track Event
+      analytics.track("Contact Form Submit",{
+        "Result": "Success"
+      });
+      setSubmitSuccess(true);    
     }
-  };
+  }
+  
   return (
     <>
-      <Head>
-        <Script src="https://www.google.com/recaptcha/api.js" async defer></Script>
-      </Head>
-      <main className="max-w-3xl mx-auto">
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-xl flex flex-col px-8 py-8 gap-6 bg-black"
-        >
-          <div className={styles.fieldGroup}>
-            <label
-              htmlFor="fullname"
-              className="text-lighter-gray font-mono"
-            >
-              Full name<sup className="opacity-50">*</sup>
-            </label>
-            <input
-              type="text"
-              value={fullname}
-              onChange={(e) => {
-                setFullname(e.target.value);
-              }}
-              name="fullname"
-              className={styles.inputField}
+      {!submitSuccess && (
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl m-auto bg-slate px-8 py-10 rounded-xl grid gap-4">
+          
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+            <Input 
+              type="text" 
+              label="Full Name"
+              {...register("fullname", { required: true })}
+              variant='flat'
+              size="lg"
+              classNames={inputClasses}
+              {...errors.fullname && ({errorMessage: 'Please enter your name'})}
             />
-            {errors?.fullname && (
-              <p className={styles.errorMsg}>Full Name cannot be empty.</p>
-            )}
           </div>
-
-          <div className={styles.fieldGroup}>
-            <label
-              htmlFor="email"
-              className="text-lighter-gray font-mono"
-            >
-              E-mail<sup className="opacity-50">*</sup>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              className={styles.inputField}
+          
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+            <Input 
+              type="email" 
+              label="Email" 
+              {...register("email", { required: true, pattern: /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/ })}
+              variant='flat'
+              size="lg"
+              classNames={inputClasses}
+              {...errors.email && ({errorMessage: 'Please enter a valid email'})}
             />
-            {errors?.email && (
-              <p className={styles.errorMsg}>Email cannot be empty.</p>
-            )}
           </div>
-
-          <div className={styles.fieldGroup}>
-            <label
-              htmlFor="subject"
-              className="text-lighter-gray font-mono"
-            >
-              Subject<sup className="opacity-50">*</sup>
-            </label>
-            <input
-              type="text"
-              name="subject"
-              value={subject}
-              onChange={(e) => {
-                setSubject(e.target.value);
-              }}
-              className={styles.inputField}
+          
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+            <Input 
+              type="text" 
+              label="Subject" 
+              {...register("subject", { required: true })}
+              variant='flat'
+              size="lg"
+              classNames={inputClasses}
+              {...errors.subject && ({errorMessage: 'Please enter a subject'})}
             />
-            {errors?.subject && (
-              <p className={styles.errorMsg}>Subject cannot be empty.</p>
-            )}
           </div>
-
-          <div className={styles.fieldGroup}>
-            <label
-              htmlFor="message"
-              className="text-lighter-gray font-mono"
-            >
-              Message<sup className="opacity-50">*</sup>
-            </label>
-            <textarea
-              name="message"
-              value={message}
-              onChange={(e) => {
-                setMessage(e.target.value);
-              }}
-              className={cx([styles.inputField, styles.longText])}
-            ></textarea>
-            {errors?.message && (
-              <p className={styles.errorMsg}>Message body cannot be empty.</p>
-            )}
+          
+          <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+            <Textarea 
+              label="Message" 
+              {...register("message", { required: true })}
+              variant='flat'
+              size="lg"
+              classNames={inputClasses}
+              {...errors.message && ({errorMessage: 'Please enter a message'})}
+            />
           </div>
-
-          <div className="flex flex-row items-flex-end justify-between">
+          
+          <div className="flex w-full flex-wrap md:flex-nowrap justify-center gap-4">
             <div>
-              <div className="text-left">
-                {showSuccessMessage && (
-                  <p className="text-teal text-sm font-mono">
-                    Thank you! Your Message has been delivered.
-                  </p>
-                )}
-                {showFailureMessage && (
-                  <p className="text-teal text-sm font-mono">
-                    Oops! Something went wrong, please try again. If this continues, please feel free to email me directly at <a href="mailto:yours.truly@mattondo.com">yours.truly@mattondo.com</a>.
-                  </p>
-                )}
-              </div>
+              <Button
+                type="submit"
+                size="lg" 
+                disabled={isSubmitting || errors.length > 0}
+                className={styles.submitButton}
+                endContent={isSubmitting ? (<Spinner size="sm" color="default" classNames={{
+                  circle1: styles.spinnerCircle1,
+                  circle2: styles.spinnerCircle2,
+                }} />) : (<IoIosSend className="text-lg" />)}
+                >
+                {isSubmitting ? 'Sending' : 'Send'}
+              </Button>
             </div>
-
-            <button
-              type="submit"
-              className={styles.submitButton}
-            >
-              {buttonText}
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="text-cyan-500 ml-2"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9.00967 5.12761H11.0097C12.1142 5.12761 13.468 5.89682 14.0335 6.8457L16.5089 11H21.0097C21.562 11 22.0097 11.4477 22.0097 12C22.0097 12.5523 21.562 13 21.0097 13H16.4138L13.9383 17.1543C13.3729 18.1032 12.0191 18.8724 10.9145 18.8724H8.91454L12.4138 13H5.42485L3.99036 15.4529H1.99036L4.00967 12L4.00967 11.967L2.00967 8.54712H4.00967L5.44417 11H12.5089L9.00967 5.12761Z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
+            {submitSuccess === false && (
+            <div>
+              <p className="text-lighter-grey text-sm font-mono m-0">
+              <span className="text-teal font-semibold">Oops!</span> Something went wrong, please try again. If this continues, please feel free to email me directly at <a href="mailto:yours.truly@mattondo.com">yours.truly@mattondo.com</a>.
+              </p>
+            </div>
+            )}
           </div>
+          <p className="text-lighter-gray text-xs m-0 text-center">
+            This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" className="text-lighter-gray font-sans underline">Privacy Policy</a> and <a href="https://policies.google.com/terms" className="text-lighter-gray font-sans underline">Terms of Service</a> apply.
+          </p>
         </form>
-      </main>
+        // </GoogleReCaptchaProvider>
+      )}
+      {submitSuccess && (
+        <div className="w-full max-w-xl m-auto bg-slate p-8 rounded-xl grid gap-4">
+          <p className="text-lighter-grey text-sm font-mono">
+          <span className="text-teal font-semibold">Thank you!</span> Your message has been sent.
+          </p>
+        </div>
+      )}
     </>
   );
 }

@@ -36,3 +36,11 @@ body {
 #menu-toggle span:not(.sr-only):after {
   @apply bg-lighter-gray;
 }
+
+input,
+textarea {
+  background: transparent;
+}
+form > span {
+  @apply text-xs;
+}

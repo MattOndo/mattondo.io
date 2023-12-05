@@ -1,62 +1,42 @@
-.inputField {
-  @apply
-    appearance-none
-    rounded-lg
-    h-10
-    bg-light-gray
-    focus-visible:outline-teal
-    focus-visible:outline-dashed
-    focus-visible:outline-offset-0
-    focus-visible:outline-2
-    focus-visible:bg-lighter-gray
-    text-black
-    px-4;
-}
-.inputField[val='*'] {
-  @apply bg-lighter-gray;
-}
-
-.longText {
-  @apply h-40 py-3
-}
-
-.fieldGroup {
-  @apply flex flex-col relative gap-2;
-}
-
-.fieldGroup > div {
-  display: none;
-}
-
-.errorMsg {
-  @apply
-    text-teal
-    text-xs
-    m-0
-    absolute
-    right-0
-    top-1
-    font-mono;
-}
-
 .submitButton {
   @apply flex
+    font-mono
+    font-semibold
     p-4
     bg-teal
     text-black
     rounded-lg
     transition-all
-    focus-visible:bg-slate
-    focus-visible:text-teal
-    focus-visible:outline-teal
-    focus-visible:outline-dashed
-    focus-visible:outline-offset-0
-    focus-visible:outline-2
-    hover:bg-slate
-    hover:text-teal
-    hover:outline-teal
-    hover:outline-dashed
-    hover:outline-offset-0
-    hover:outline-2;
+    cursor-pointer
+    border-teal
+    border-solid
+    border-2;
+}
+.submitButton:focus-visible,
+.submitButton:hover {
+  @apply bg-slate
+  text-teal
+  border-teal
+  border-dashed
+  border-2;
+}
 
+.spinnerCircle1,
+.spinnerCircle2 {
+  @apply border-teal 
+    border-b-black;
+}
+
+.submitButton:focus-visible .spinnerCircle1,
+.submitButton:focus-visible .spinnerCircle2,
+.submitButton:hover .spinnerCircle1,
+.submitButton:hover .spinnerCircle2 {
+  @apply border-slate 
+    border-b-teal;
+}
+
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
