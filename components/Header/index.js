@@ -18,8 +18,8 @@ export default function Header({ siteTitle, menuItems }) {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4 " justify="center">
-        {menuItems.map((item) => (
-          <NavbarItem>
+        {menuItems.map((item,index) => (
+          <NavbarItem key={`navItem-${index}`}>
             <Link 
               className={`p-5 hover:bg-teal hover:bg-opacity-10 ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} 
               href={item.uri}>
@@ -30,8 +30,8 @@ export default function Header({ siteTitle, menuItems }) {
       </NavbarContent>
 
       <NavbarMenu className="hidden sm:flex gap-4 m-0 bg-black bg-opacity-50 list-none" justify="center">
-        {menuItems.map((item) => (
-          <NavbarMenuItem>
+        {menuItems.map((item,index) => (
+          <NavbarMenuItem key={`mNavItem-${index}`}>
             <Link className={`p-5 hover:bg-teal hover:bg-opacity-10  ${pathname === item.uri || (pathname.startsWith(item.uri) && item.uri !== '/') ? 'text-teal' : 'text-lighter-gray'}`} href={item.uri}>
               {item.label}
             </Link>
