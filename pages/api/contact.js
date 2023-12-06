@@ -5,7 +5,7 @@ sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 async function sendEmail(req, res) {
   if (!req.body) {return false;}
 
-  const { name, email, subject, message, gtoken } = req.body;
+  const { firstname, lastname, email, subject, message, gtoken } = req.body;
 
   const recaptchaVerifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${gtoken}`;
 
@@ -27,10 +27,11 @@ async function sendEmail(req, res) {
       subject: `[Website Message] ${subject}`,
       template_id: 'd-5b2f4b63e38941a4bc40241780fc99ec',
       dynamic_template_data: {
-        name: name,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
         subject: subject,
-        message: message,
+        message: message.replace(/\r\n|\r|\n/g,"<br />"),
       },
     }
 
@@ -42,7 +43,7 @@ async function sendEmail(req, res) {
       subject: `Thanks for reaching out!`,
       template_id: 'd-f86f0f80d69a4a43b8c17cd4fd935ff2',
       dynamic_template_data: {
-        name: name,
+        firstname: firstname,
       },
     }
 

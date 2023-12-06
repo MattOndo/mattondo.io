@@ -4,6 +4,7 @@ import { Input, Textarea, Button } from "@nextui-org/react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-hook";
 import { IoIosSend } from "react-icons/io";
 import { Spinner } from "@nextui-org/react";
+import { MdOutlineAlternateEmail } from "react-icons/md";
 import styles from './style.module.css';
 
 const sitekey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
@@ -11,8 +12,6 @@ const inputClasses = {
   label: "text-black font-mono text-sm",
   input: [
     "bg-transparent",
-    "text-lighter-grey",
-    "placeholder:text-lighter-gray/60",
   ],
   innerWrapper: "bg-transparent",
   inputWrapper: [
@@ -84,16 +83,30 @@ export default function ContactForm() {
     <>
       {!submitSuccess && (
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl m-auto bg-slate px-8 py-10 rounded-xl grid gap-4">
-          <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-            <Input 
-              type="text" 
-              label="Name"
-              {...register("name", { required: true })}
-              variant='flat'
-              size="lg"
-              classNames={inputClasses}
-              {...errors.name && ({errorMessage: 'Please enter your name'})}
-            />
+          <div className="w-full max-w-xl m-auto bg-slate rounded-xl grid md:grid-cols-2 gap-4">
+            <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+              <Input 
+                type="text" 
+                label="First Name"
+                {...register("firstname", { required: true })}
+                variant='flat'
+                size="lg"
+                classNames={inputClasses}
+                {...errors.name && ({errorMessage: 'Please enter your first name'})}
+              />
+            </div>
+
+            <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+              <Input 
+                type="text" 
+                label="Last Name"
+                {...register("lastname", { required: true })}
+                variant='flat'
+                size="lg"
+                classNames={inputClasses}
+                {...errors.name && ({errorMessage: 'Please enter your last name'})}
+              />
+            </div>
           </div>
           
           <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -104,6 +117,7 @@ export default function ContactForm() {
               variant='flat'
               size="lg"
               classNames={inputClasses}
+              endContent={<MdOutlineAlternateEmail className="text-lg text-black self-center" />}
               {...errors.email && ({errorMessage: 'Please enter a valid email'})}
             />
           </div>
