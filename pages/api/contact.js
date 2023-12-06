@@ -23,7 +23,7 @@ async function sendEmail(req, res) {
 
     const alertEmailMsg = {
       to: 'yours.truly@mattondo.com',
-      from: 'yours.truly@mattondo.com',
+      from: 'alerts@mattondo.com',
       subject: `[Website Message] ${subject}`,
       template_id: 'd-5b2f4b63e38941a4bc40241780fc99ec',
       dynamic_template_data: {
