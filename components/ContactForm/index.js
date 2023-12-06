@@ -82,6 +82,7 @@ export default function ContactForm() {
   return (
     <>
       {!submitSuccess && (
+        <>
         <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl m-auto bg-slate px-8 py-10 rounded-xl grid gap-4">
           <div className="w-full max-w-xl m-auto bg-slate rounded-xl grid md:grid-cols-2 gap-4">
             <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
@@ -144,7 +145,7 @@ export default function ContactForm() {
               {...errors.message && ({errorMessage: 'Please enter a message'})}
             />
           </div>
-          
+
           <div className="flex w-full flex-wrap md:flex-nowrap justify-center gap-4">
             <div>
               <Button
@@ -168,11 +169,12 @@ export default function ContactForm() {
             </div>
             )}
           </div>
-
-          <p className="text-lighter-gray text-xs m-0 text-center">
-            This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" className="text-lighter-gray font-sans underline">Privacy Policy</a> and <a href="https://policies.google.com/terms" className="text-lighter-gray font-sans underline">Terms of Service</a> apply.
-          </p>
         </form>
+
+        <p className="max-w-lg m-auto text-lighter-gray/70 mt-4 text-xs text-center">
+        Your privacy matters to me. Your personal information is safely guarded and will never be shared or sold, just as the <a href="/privacy-policy/"  className="text-lighter-gray/70 font-sans underline">privacy policy</a> outlines. This site is protected by reCAPTCHA and the Google <a href="https://policies.google.com/privacy" className="text-lighter-gray/70 font-sans underline">Privacy Policy</a> and <a href="https://policies.google.com/terms" className="text-lighter-gray/70 font-sans underline">Terms of Service</a> apply.
+        </p>
+        </>
       )}
       {submitSuccess && (
         <div className="w-full max-w-xl m-auto bg-slate p-8 rounded-xl grid gap-4">
