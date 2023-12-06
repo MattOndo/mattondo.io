@@ -2,18 +2,18 @@ import { gql } from "@apollo/client";
 import { React, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Navbar, NavbarBrand, NavbarMenuItem, NavbarMenuToggle, NavbarMenu, NavbarContent, NavbarItem, Link } from "@nextui-org/react";
-import Icon from '../../assets/images/icon.svg';
+import Icon from '@assets/images/icon.svg';
 
 export default function Header({ siteTitle, menuItems }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
 
   return (
-    <Navbar id="site-nav" onMenuOpenChange={setIsMenuOpen} className="bg-black p-0" shouldHideOnScroll>
+    <Navbar id="site-nav" onMenuOpenChange={setIsMenuOpen} className="bg-black p-0" height="5rem" shouldHideOnScroll>
       <NavbarContent className="ml-0">
-        <NavbarBrand as={Link} href="/" className="flex-grow-0 p-2 gap-4 hover:border-0 hover:bg-none">
-          <Icon aria-label="Website Logo" className='absolute -top-1' />
-          <p className="font-bold text-inherit text-teal text-xl m-0 ml-20">{siteTitle}</p>
+        <NavbarBrand as={Link} href="/" className="flex-grow-0 gap-4">
+          <Icon aria-label="Website Logo" className='w-10' />
+          <p className="font-bold text-inherit text-teal text-xl m-0">{siteTitle}</p>
         </NavbarBrand>
       </NavbarContent>
 
