@@ -17,9 +17,9 @@
   "dependencies": {
     "@apollo/client": "^3.7.7",
     "@builder.io/partytown": "^0.8.0",
-    "@faustwp/blocks": "^2.0.0",
-    "@faustwp/cli": "^1.0.0",
-    "@faustwp/core": "^1.1.1",
+    "@faustwp/blocks": "^4.0.0",
+    "@faustwp/cli": "^3.0.2",
+    "@faustwp/core": "^3.0.1",
     "@nextui-org/react": "^2.2.9",
     "@sendgrid/mail": "^7.7.0",
     "@wordpress/style-engine": "^1.23.0",
