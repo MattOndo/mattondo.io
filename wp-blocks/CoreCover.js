@@ -114,7 +114,6 @@ CoreCover.fragments = {
   entry: gql`
     fragment CoreCoverFragment on CoreCover {
       attributes {
-        align
         alt
         backgroundType
         className

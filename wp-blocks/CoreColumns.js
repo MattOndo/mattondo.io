@@ -22,7 +22,6 @@ CoreColumns.fragments = {
   entry: gql`
     fragment CoreColumnsFragment on CoreColumns {
       attributes {
-        align
         className
         cssClassName
         layout

@@ -7,5 +7,5 @@ export default {
   "front-page": frontPage,
   page,
   single,
-  archive,
+  home: archive,
 };

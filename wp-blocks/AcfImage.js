@@ -75,7 +75,6 @@ AcfImage.fragments = {
         data
         className
         anchor
-        align
       }
     }
 

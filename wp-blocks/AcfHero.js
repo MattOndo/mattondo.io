@@ -55,7 +55,6 @@ AcfHero.fragments = {
         data
         className
         anchor
-        align
       }
     }
 

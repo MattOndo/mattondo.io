@@ -109,7 +109,6 @@ CoreGallery.fragments = {
       attributes {
         images
         columns
-        align
       }
     }
 
